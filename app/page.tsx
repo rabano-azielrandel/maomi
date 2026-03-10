@@ -26,7 +26,7 @@ export default function Home() {
         </nav>
         <div className="flex-1 flex flex-col items-center gap-20 max-w-5xl p-5">
           <Image
-            src={"/image/logo.png"}
+            src={"/image/dark_logo.png"}
             alt="logo"
             width={100}
             height={100}
