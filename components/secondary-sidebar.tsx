@@ -134,64 +134,97 @@ export default function SecondarySidebar() {
           </p>
         </div>
 
-        <div className="flex gap-2">
-          <div className="w-10 flex centerXY rounded-full">
-            <Image
-              src={"/image/logo.png"}
-              alt="user"
-              width={100}
-              height={100}
-              className="w-10 h-10 object-contain"
-            />
+        <div className="flex justify-between">
+          <div className="flex gap-2">
+            <div className="w-10 flex centerXY rounded-full">
+              <Image
+                src={"/image/logo.png"}
+                alt="user"
+                width={100}
+                height={100}
+                className="w-10 h-10 object-contain"
+              />
+            </div>
+            <div className="flex flex-col">
+              <p className="text-primary text-sm font-medium tracking-tight">
+                Maomi
+              </p>
+              <p className="text-primary text-xs font-light tracking-wide">
+                @maomi
+              </p>
+            </div>
           </div>
-          <div className="flex flex-col">
-            <p className="text-primary text-sm font-medium tracking-tight">
-              Maomi
-            </p>
-            <p className="text-primary text-xs font-light tracking-wide">
-              @maomi
-            </p>
-          </div>
+
+          <Button
+            asChild
+            size="lg"
+            variant={"outline"}
+            className="w-28 h-10 rounded-3xl"
+          >
+            <Link href="#">Subscribe</Link>
+          </Button>
         </div>
 
-        <div className="flex gap-2">
-          <div className="w-10 flex centerXY rounded-full">
-            <Image
-              src={"/image/logo.png"}
-              alt="user"
-              width={100}
-              height={100}
-              className="w-10 h-10 object-contain"
-            />
+        <div className="flex justify-between">
+          <div className="flex gap-2">
+            <div className="w-10 flex centerXY rounded-full">
+              <Image
+                src={"/image/logo.png"}
+                alt="user"
+                width={100}
+                height={100}
+                className="w-10 h-10 object-contain"
+              />
+            </div>
+            <div className="flex flex-col">
+              <p className="text-primary text-sm font-medium tracking-tight">
+                Maomi
+              </p>
+              <p className="text-primary text-xs font-light tracking-wide">
+                @maomi
+              </p>
+            </div>
           </div>
-          <div className="flex flex-col">
-            <p className="text-primary text-sm font-medium tracking-tight">
-              Maomi
-            </p>
-            <p className="text-primary text-xs font-light tracking-wide">
-              @maomi
-            </p>
-          </div>
+
+          <Button
+            asChild
+            size="lg"
+            variant={"outline"}
+            className="w-28 h-10 rounded-3xl"
+          >
+            <Link href="#">Subscribe</Link>
+          </Button>
         </div>
 
-        <div className="flex gap-2">
-          <div className="w-10 flex centerXY rounded-full">
-            <Image
-              src={"/image/logo.png"}
-              alt="user"
-              width={100}
-              height={100}
-              className="w-10 h-10 object-contain"
-            />
+        <div className="flex justify-between">
+          <div className="flex gap-2">
+            <div className="w-10 flex centerXY rounded-full">
+              <Image
+                src={"/image/logo.png"}
+                alt="user"
+                width={100}
+                height={100}
+                className="w-10 h-10 object-contain"
+              />
+            </div>
+            <div className="flex flex-col">
+              <p className="text-primary text-sm font-medium tracking-tight">
+                Maomi
+              </p>
+              <p className="text-primary text-xs font-light tracking-wide">
+                @maomi
+              </p>
+            </div>
           </div>
-          <div className="flex flex-col">
-            <p className="text-primary text-sm font-medium tracking-tight">
-              Maomi
-            </p>
-            <p className="text-primary text-xs font-light tracking-wide">
-              @maomi
-            </p>
-          </div>
+
+          <Button
+            asChild
+            size="lg"
+            variant={"outline"}
+            className="w-28 h-10 rounded-3xl"
+          >
+            <Link href="#">Subscribe</Link>
+          </Button>
         </div>
 
         <p className="text-purple-500">Show more</p>
