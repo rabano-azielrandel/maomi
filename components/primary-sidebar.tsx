@@ -27,7 +27,7 @@ const data = [
 export default function PrimarySidebar() {
   return (
     <div className="flex-1 flex flex-col py-4 gap-10">
-      <div className="w-full">
+      <div>
         <Image
           src={"/image/dark_logo.png"}
           alt="logo"
@@ -40,13 +40,12 @@ export default function PrimarySidebar() {
         const Icon = item.icon;
 
         return (
-          <div
-            key={index}
-            className="flex items-center gap-3 h-12 text-primary text-xl font-medium rounded-2xl hover:bg-primary/10"
-          >
-            <Icon size={22} />
-            {item.label}
-          </div>
+          <ul key={index}>
+            <li className="flex items-center gap-3 h-12 text-primary text-xl font-medium rounded-2xl hover:bg-primary/10">
+              <Icon size={22} />
+              {item.label}
+            </li>
+          </ul>
         );
       })}
 
