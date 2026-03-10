@@ -18,29 +18,17 @@ async function UserDetails() {
 
 export default function ProtectedPage() {
   return (
-    <div className="flex-1 w-full min-h-screen flex flex-col gap-12 overflow-y-auto scrollbar-hide bg-amber-500">
-      <div className="w-full">
-        <Suspense>
-          <AuthButton />
-        </Suspense>
+    <div className="flex-1 w-full min-h-screen flex flex-col gap-12 border-x border-primary overflow-y-auto scrollbar-hide">
+      <div className="h-[85px] flex justify-between items-center px-32 shadow-sm">
+        <p>For you</p>
+        <p>Following</p>
       </div>
-      <div className="w-full">
+      <div className="w-full px-2">
         <div className="bg-accent text-sm p-3 px-5 rounded-md text-foreground flex gap-3 items-center">
           <InfoIcon size="16" strokeWidth={2} />
           This is a protected page that you can only see as an authenticated
           user
         </div>
-      </div>
-      <div className="flex flex-col gap-2 items-start">
-        <h2 className="font-bold text-2xl mb-4">Your user details</h2>
-        <pre className="text-xs font-mono p-3 rounded border max-h-32 overflow-auto">
-          <Suspense>
-            <UserDetails />
-          </Suspense>
-        </pre>
-      </div>
-      <div>
-        <h2 className="font-bold text-2xl mb-4">Next steps</h2>
       </div>
     </div>
   );
