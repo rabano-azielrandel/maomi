@@ -15,13 +15,13 @@ import {
 } from "lucide-react";
 
 const data = [
-  { label: "Home", icon: Home },
-  { label: "Explore", icon: Compass },
-  { label: "Notification", icon: Bell },
-  { label: "Follow", icon: UserPlus },
-  { label: "Chat", icon: MessageCircle },
-  { label: "Bookmarks", icon: Bookmark },
-  { label: "Profile", icon: User },
+  { label: "Home", icon: Home, href: "/home" },
+  { label: "Explore", icon: Compass, href: "/explore" },
+  { label: "Notification", icon: Bell, href: "/notification" },
+  { label: "Follow", icon: UserPlus, href: "/follow" },
+  { label: "Chat", icon: MessageCircle, href: "/chat" },
+  { label: "Bookmarks", icon: Bookmark, href: "/bookmarks" },
+  { label: "Profile", icon: User, href: "/profile" },
 ];
 
 export default function PrimarySidebar() {
@@ -41,12 +41,14 @@ export default function PrimarySidebar() {
           const Icon = item.icon;
 
           return (
-            <li
-              key={index}
-              className="flex items-center gap-3 p-2 h-12 text-primary text-xl font-medium rounded-2xl hover:bg-primary/10"
-            >
-              <Icon size={22} />
-              {item.label}
+            <li key={index} className="h-12">
+              <Link
+                href={item.href}
+                className="flex items-center gap-3 p-2 h-full text-primary text-xl font-medium rounded-2xl hover:bg-primary/10"
+              >
+                <Icon size={22} />
+                {item.label}
+              </Link>
             </li>
           );
         })}
