@@ -3,7 +3,7 @@ import { LogoutButton } from "./logout-button";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { Icon } from "lucide-react";
+import { ThemeSwitcher } from "./theme-switcher";
 import {
   Home,
   Compass,
@@ -52,14 +52,9 @@ export default function PrimarySidebar() {
         })}
       </ul>
 
-      <Button
-        asChild
-        size="lg"
-        variant={"outline"}
-        className="h-10 rounded-2xl"
-      >
-        <Link href="#">POST</Link>
-      </Button>
+      <div>
+        <ThemeSwitcher />
+      </div>
 
       <Suspense>
         <LogoutButton />

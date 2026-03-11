@@ -25,28 +25,29 @@ const ThemeSwitcher = () => {
     return null;
   }
 
+  const TRIGGER_ICON_SIZE = 32;
   const ICON_SIZE = 16;
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size={"sm"}>
+        <Button variant="ghost" size={"sm"} className="[&_svg]:size-8">
           {theme === "light" ? (
             <Sun
               key="light"
-              size={ICON_SIZE}
+              size={TRIGGER_ICON_SIZE}
               className={"text-muted-foreground"}
             />
           ) : theme === "dark" ? (
             <Moon
               key="dark"
-              size={ICON_SIZE}
+              size={TRIGGER_ICON_SIZE}
               className={"text-muted-foreground"}
             />
           ) : (
             <Laptop
               key="system"
-              size={ICON_SIZE}
+              size={TRIGGER_ICON_SIZE}
               className={"text-muted-foreground"}
             />
           )}
