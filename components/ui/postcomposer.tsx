@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import {
   Image as ImageIcon,
   Smile,
@@ -8,41 +9,51 @@ import {
   BarChart2,
 } from "lucide-react";
 
-import Image from "next/image";
 import { Button } from "./button";
+import Image from "next/image";
 import Link from "next/link";
 
-const toolbarIcons = [
-  {
-    name: "image",
-    icon: ImageIcon,
-    action: () => document.getElementById("imageUpload")?.click(),
-  },
-  {
-    name: "poll",
-    icon: BarChart2,
-    action: () => console.log("Open poll creator"),
-  },
-  {
-    name: "emoji",
-    icon: Smile,
-    action: () => console.log("Open emoji picker"),
-  },
-  {
-    name: "schedule",
-    icon: Calendar,
-    action: () => console.log("Open scheduler"),
-  },
-  {
-    name: "location",
-    icon: MapPin,
-    action: () => console.log("Add location"),
-  },
-];
+import { ComposerPlugin } from "@/types/home/composerplugin";
+import { usePostComposer } from "@/hooks/userPostComposer";
+
+// Dynamic import for emoji-picker-react (client only)
+const EmojiPicker = dynamic(() => import("emoji-picker-react"), {
+  ssr: false,
+});
 
 export default function PostComposer() {
+  const composer = usePostComposer();
+
+  const toolbarIcons: ComposerPlugin[] = [
+    {
+      name: "image",
+      icon: ImageIcon,
+      action: () => document.getElementById("imageUpload")?.click(),
+    },
+    {
+      name: "poll",
+      icon: BarChart2,
+      action: () => console.log("Open poll creator"),
+    },
+    {
+      name: "emoji",
+      icon: Smile,
+      action: () => composer.setShowEmoji((prev) => !prev),
+    },
+    {
+      name: "schedule",
+      icon: Calendar,
+      action: () => console.log("Open scheduler"),
+    },
+    {
+      name: "location",
+      icon: MapPin,
+      action: () => console.log("Add location"),
+    },
+  ];
+
   return (
-    <div className="flex gap-3 p-4 rounded-xl  text-white w-full ">
+    <div className="flex gap-3 p-4 rounded-xl text-white w-full">
       {/* Avatar */}
       <div className="flex items-center justify-center w-10 h-10 rounded-full bg-purple-500 font-bold">
         <Image
@@ -59,6 +70,8 @@ export default function PostComposer() {
         {/* Textarea */}
         <textarea
           placeholder="What's happening?"
+          value={composer.text}
+          onChange={(e) => composer.setText(e.target.value)}
           className="w-full bg-transparent outline-none resize-none text-lg placeholder-gray-500"
           rows={2}
         />
@@ -66,7 +79,7 @@ export default function PostComposer() {
         {/* Footer */}
         <div className="flex items-center justify-between mt-3">
           {/* Icons */}
-          <div className="flex items-center gap-4 text-blue-500">
+          <div className="flex items-center gap-4 text-blue-500 relative">
             {toolbarIcons.map(({ name, icon: Icon, action }) => (
               <Icon
                 key={name}
@@ -76,6 +89,19 @@ export default function PostComposer() {
               />
             ))}
 
+            {/* Emoji Picker */}
+            {composer.showEmoji && (
+              <div className="absolute -bottom-[460px] left-0 z-50">
+                <EmojiPicker
+                  onEmojiClick={(emojiData) => {
+                    composer.addEmoji(emojiData.emoji);
+                    composer.setShowEmoji(false);
+                  }}
+                />
+              </div>
+            )}
+
+            {/* Hidden file input for image uploads */}
             <input
               type="file"
               id="imageUpload"
