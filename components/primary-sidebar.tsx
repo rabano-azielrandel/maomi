@@ -36,14 +36,14 @@ export default function PrimarySidebar() {
           className="w-14 h-14 object-contain"
         />
       </div>
-      <ul>
+      <ul className="flex flex-col gap-10">
         {data.map((item, index) => {
           const Icon = item.icon;
 
           return (
             <li
               key={index}
-              className="flex items-center gap-3 h-12 text-primary text-xl font-medium rounded-2xl hover:bg-primary/10"
+              className="flex items-center gap-3 p-2 h-12 text-primary text-xl font-medium rounded-2xl hover:bg-primary/10"
             >
               <Icon size={22} />
               {item.label}
