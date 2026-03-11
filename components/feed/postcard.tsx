@@ -7,6 +7,8 @@ import {
   Share,
 } from "lucide-react";
 
+import Image from "next/image";
+
 type Media = {
   type: "image" | "video" | "link";
   url?: string;
@@ -32,9 +34,12 @@ export default function PostCard({ post }: { post: Post }) {
     <div className="border-b px-4 py-3 hover:bg-muted/30 transition cursor-pointer">
       <div className="flex gap-3">
         {/* Avatar */}
-        <img
+        <Image
           src={post.profiles?.avatar_url ?? "/avatar.png"}
-          className="w-10 h-10 rounded-full"
+          alt="avatar"
+          width={100}
+          height={100}
+          className="w-10 h-10 rounded-full object-cover bg-purple-400"
         />
 
         <div className="flex flex-col w-full">

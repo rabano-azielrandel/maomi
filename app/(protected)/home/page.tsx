@@ -8,12 +8,11 @@ import PostFeed from "@/components/feed/postfeed";
 export const samplePosts = [
   {
     id: "1",
-    content:
-      "Just finished building my first Twitter-style feed with Next.js 🚀",
+    content: "Just finished building my maomi feed with Next.js 🚀",
     created_at: "2026-03-11T10:30:00Z",
     profiles: {
       username: "azi",
-      avatar_url: "https://i.pravatar.cc/150?img=3",
+      avatar_url: "/image/azi.png",
     },
     media: null,
   },
@@ -24,7 +23,7 @@ export const samplePosts = [
     created_at: "2026-03-11T09:10:00Z",
     profiles: {
       username: "traveler",
-      avatar_url: "https://i.pravatar.cc/150?img=5",
+      avatar_url: "/image/azi.png",
     },
     media: {
       type: "image",
@@ -38,11 +37,11 @@ export const samplePosts = [
     created_at: "2026-03-11T08:00:00Z",
     profiles: {
       username: "frontenddev",
-      avatar_url: "https://i.pravatar.cc/150?img=8",
+      avatar_url: "/user/aj.jpg",
     },
     media: {
       type: "video",
-      url: "https://www.w3schools.com/html/mov_bbb.mp4",
+      url: "/video/entry.mp4",
     },
   },
 
@@ -53,7 +52,7 @@ export const samplePosts = [
     created_at: "2026-03-11T07:40:00Z",
     profiles: {
       username: "cnnbrk",
-      avatar_url: "https://i.pravatar.cc/150?img=12",
+      avatar_url: "/image/azi.png",
     },
     media: {
       type: "link",
