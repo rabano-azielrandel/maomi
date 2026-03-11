@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { LogoutButton } from "./logout-button";
-import { Button } from "./ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import { ThemeSwitcher } from "./theme-switcher";

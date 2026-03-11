@@ -105,7 +105,8 @@ export default function PostComposer() {
             <input
               type="file"
               id="imageUpload"
-              accept="image/*"
+              accept="image/*,video/*"
+              multiple
               className="hidden"
               onChange={(e) => console.log(e.target.files)}
             />
