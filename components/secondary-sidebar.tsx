@@ -9,7 +9,7 @@ export default function SecondarySidebar() {
   return (
     <div className="flex-1 flex flex-col gap-10 overflow-auto scrollbar-hide">
       {/* search bar */}
-      <div className="sticky top-0 z-10 bg-white -mt-4 py-4 px-4 shadow-sm">
+      <div className="sticky top-0 z-10 bg-background -mt-4 py-4 px-4 shadow-sm">
         <div className="relative">
           <Search
             className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
