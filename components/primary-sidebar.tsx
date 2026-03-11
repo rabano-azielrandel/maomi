@@ -36,18 +36,21 @@ export default function PrimarySidebar() {
           className="w-14 h-14 object-contain"
         />
       </div>
-      {data.map((item, index) => {
-        const Icon = item.icon;
+      <ul>
+        {data.map((item, index) => {
+          const Icon = item.icon;
 
-        return (
-          <ul key={index}>
-            <li className="flex items-center gap-3 h-12 text-primary text-xl font-medium rounded-2xl hover:bg-primary/10">
+          return (
+            <li
+              key={index}
+              className="flex items-center gap-3 h-12 text-primary text-xl font-medium rounded-2xl hover:bg-primary/10"
+            >
               <Icon size={22} />
               {item.label}
             </li>
-          </ul>
-        );
-      })}
+          );
+        })}
+      </ul>
 
       <Button
         asChild
