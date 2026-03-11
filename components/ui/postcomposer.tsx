@@ -72,7 +72,7 @@ export default function PostComposer() {
           placeholder="What's happening?"
           value={composer.text}
           onChange={(e) => composer.setText(e.target.value)}
-          className="w-full bg-transparent outline-none resize-none text-lg placeholder-gray-500"
+          className="w-full bg-transparent outline-none resize-none text-lg text-primary placeholder-gray-500"
           rows={2}
         />
 
