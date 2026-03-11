@@ -20,7 +20,9 @@ export default function ProtectedLayout({
         <div className="flex-[2] min-h-screen flex flex-col p-4">
           <PrimarySidebar />
         </div>
-        <div className="flex-[6] min-h-screen">{children}</div>
+        <div className="flex-[6] min-h-screen border-x border-primary/30">
+          {children}
+        </div>
         <div className="flex-[3] min-h-screen flex flex-col p-4 overflow-y-auto">
           <SecondarySidebar />
         </div>

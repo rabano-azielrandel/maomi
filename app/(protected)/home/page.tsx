@@ -19,7 +19,7 @@ async function UserDetails() {
 
 export default function ProtectedPage() {
   return (
-    <div className="flex-1 w-full min-h-screen flex flex-col border-x border-primary overflow-y-auto scrollbar-hide">
+    <div className="flex-1 w-full min-h-screen flex flex-col overflow-y-auto scrollbar-hide">
       <nav className="h-[85px] flex items-center shadow-sm">
         <div className="flex-1 h-full flex items-center justify-center hover:bg-primary/10">
           <p>For you</p>
