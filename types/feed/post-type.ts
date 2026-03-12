@@ -18,8 +18,15 @@ export type Post = {
   media?: Media | null;
 };
 
+export type PostActionName =
+  | "comment"
+  | "repost"
+  | "like"
+  | "bookmark"
+  | "share";
+
 export type PostActionPlugin = {
-    name: string;
+    name: PostActionName;
     icon: any;
     action: () => void;
     count?: number;

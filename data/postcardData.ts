@@ -2,29 +2,29 @@ import { MessageCircle, Repeat2, Heart, Bookmark, Share } from "lucide-react";
 
 import { PostActionPlugin } from "@/types/feed/post-type";
 
-export const getPostCardActions = (post?: any): PostActionPlugin[] => [
+export const getPostCardActions = (card: any): PostActionPlugin[] => [
   {
     name: "comment",
     icon: MessageCircle,
     count: 1,
-    action: () => console.log('post.displayComment'),
+    action: () => card.toggleComment(),
   },
   {
     name: "repost",
     icon: Repeat2,
     count: 4,
-    action: () => console.log('post.repost'),
+    action: () => card.toggleRepost(),
   },
   {
     name: "like",
     icon: Heart,
     count: 6,
-    action: () => console.log('post.toggleLike'),
+    action: () => card.toggleLike(),
   },
   {
     name: "bookmark",
     icon: Bookmark,
-    action: () => console.log('post.toggleBookmark'),
+    action: () => card.toggleBookmark(),
   },
   {
     name: "share",

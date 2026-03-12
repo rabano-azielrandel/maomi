@@ -1,12 +1,28 @@
 "use client";
 
+import { usePostCardTool } from "@/hooks/postCardTools";
 import { getPostCardActions } from "@/data/postcardData";
-import { Post } from "@/types/feed/post-type";
+import { Post, PostActionName } from "@/types/feed/post-type";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 export default function PostCard({ post }: { post: Post }) {
-  const postcardIcons = getPostCardActions();
+  const card = usePostCardTool();
+  const postcardIcons = getPostCardActions(card);
+
+  const hoverColors = {
+    comment: "group-hover:text-blue-400",
+    repost: "group-hover:text-green-700",
+    like: "group-hover:text-red-400",
+    bookmark: "group-hover:text-blue-700",
+    share: "group-hover:text-gray-700",
+  };
+
+  const activeColors: Partial<Record<PostActionName, string>> = {
+    repost: card.isRepost ? "text-green-700" : "",
+    like: card.isLike ? "text-red-400" : "",
+    bookmark: card.isBookmark ? "text-blue-700" : "",
+  };
 
   return (
     <div className="border-b px-4 py-3 hover:bg-muted/30 transition cursor-pointer">
@@ -91,23 +107,19 @@ export default function PostCard({ post }: { post: Post }) {
                 <Icon
                   size={18}
                   onClick={action}
-                  className={cn("cursor-pointer", {
-                    "group-hover:text-blue-400": name === "comment",
-                    "group-hover:text-green-700": name === "repost",
-                    "group-hover:text-red-400": name === "like",
-                    "group-hover:text-blue-700": name === "bookmark",
-                    "group-hover:text-gray-700": name === "share",
-                  })}
+                  className={cn(
+                    "cursor-pointer transition",
+                    hoverColors[name],
+                    activeColors[name],
+                  )}
                 />
 
                 <span
-                  className={cn("text-sm", {
-                    "group-hover:text-blue-400": name === "comment",
-                    "group-hover:text-green-700": name === "repost",
-                    "group-hover:text-red-400": name === "like",
-                    "group-hover:text-blue-700": name === "bookmark",
-                    "group-hover:text-gray-700": name === "share",
-                  })}
+                  className={cn(
+                    "text-sm transition",
+                    hoverColors[name],
+                    activeColors[name],
+                  )}
                 >
                   {count}
                 </span>
