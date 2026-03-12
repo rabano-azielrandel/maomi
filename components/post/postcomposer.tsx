@@ -1,20 +1,12 @@
 "use client";
 
 import { useRef } from "react";
-import {
-  Image as ImageIcon,
-  Smile,
-  Calendar,
-  MapPin,
-  BarChart2,
-} from "lucide-react";
+import { Button } from "../ui/button";
+import { getToolbarIcons } from "@/data/postcomposerData";
+import { usePostComposer } from "@/hooks/userPostComposer";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "../ui/button";
-
-import { ComposerPlugin } from "@/types/home/composerplugin";
-import { usePostComposer } from "@/hooks/userPostComposer";
 
 // Dynamic import for emoji-picker-react (client only)
 const EmojiPicker = dynamic(() => import("emoji-picker-react"), {
@@ -24,34 +16,7 @@ const EmojiPicker = dynamic(() => import("emoji-picker-react"), {
 export default function PostComposer() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const composer = usePostComposer();
-
-  const toolbarIcons: ComposerPlugin[] = [
-    {
-      name: "file",
-      icon: ImageIcon,
-      action: () => document.getElementById("fileUpload")?.click(),
-    },
-    {
-      name: "poll",
-      icon: BarChart2,
-      action: () => console.log("Open poll creator"),
-    },
-    {
-      name: "emoji",
-      icon: Smile,
-      action: () => composer.setShowEmoji((prev) => !prev),
-    },
-    {
-      name: "schedule",
-      icon: Calendar,
-      action: () => console.log("Open scheduler"),
-    },
-    {
-      name: "location",
-      icon: MapPin,
-      action: () => console.log("Add location"),
-    },
-  ];
+  const toolbarIcons = getToolbarIcons(composer);
 
   return (
     <div className="flex gap-3 p-4 rounded-xl text-white w-full">
