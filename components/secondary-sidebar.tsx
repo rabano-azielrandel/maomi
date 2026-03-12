@@ -161,7 +161,7 @@ export default function SecondarySidebar() {
             variant={"outline"}
             className="w-28 h-10 rounded-3xl"
           >
-            <Link href="#">Subscribe</Link>
+            <Link href="#">Follow</Link>
           </Button>
         </div>
 
@@ -192,7 +192,7 @@ export default function SecondarySidebar() {
             variant={"outline"}
             className="w-28 h-10 rounded-3xl"
           >
-            <Link href="#">Subscribe</Link>
+            <Link href="#">Follow</Link>
           </Button>
         </div>
 
@@ -223,7 +223,7 @@ export default function SecondarySidebar() {
             variant={"outline"}
             className="w-28 h-10 rounded-3xl"
           >
-            <Link href="#">Subscribe</Link>
+            <Link href="#">Follow</Link>
           </Button>
         </div>
 
