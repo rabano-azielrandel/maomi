@@ -64,6 +64,19 @@ export const samplePosts = [
         "The International Energy Agency has advised member countries to release 400 million barrels of oil.",
     },
   },
+  {
+    id: "5",
+    content: "Hoppers on Cinema, buy your tickets now!",
+    created_at: "2026-03-11T07:40:00Z",
+    profiles: {
+      username: "pixar",
+      avatar_url: "/image/pixar.jpg",
+    },
+    media: {
+      type: "video",
+      url: "/video/animal_party.mp4",
+    },
+  },
 ];
 
 async function UserDetails() {
