@@ -2,6 +2,7 @@
 
 import { getPostCardActions } from "@/data/postcardData";
 import { Post } from "@/types/feed/post-type";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 export default function PostCard({ post }: { post: Post }) {
@@ -86,9 +87,30 @@ export default function PostCard({ post }: { post: Post }) {
           {/* ACTIONS */}
           <div className="flex justify-between mt-3 text-muted-foreground max-w-md">
             {postcardIcons.map(({ name, icon: Icon, action, count }) => (
-              <div key={name} className="flex centerXY gap-1">
-                <Icon size={18} onClick={action} className="cursor-pointer" />
-                <span className="text-sm">{count}</span>
+              <div key={name} className="flex centerXY gap-1 group">
+                <Icon
+                  size={18}
+                  onClick={action}
+                  className={cn("cursor-pointer", {
+                    "group-hover:text-blue-400": name === "comment",
+                    "group-hover:text-green-700": name === "repost",
+                    "group-hover:text-red-400": name === "like",
+                    "group-hover:text-blue-700": name === "bookmark",
+                    "group-hover:text-gray-700": name === "share",
+                  })}
+                />
+
+                <span
+                  className={cn("text-sm", {
+                    "group-hover:text-blue-400": name === "comment",
+                    "group-hover:text-green-700": name === "repost",
+                    "group-hover:text-red-400": name === "like",
+                    "group-hover:text-blue-700": name === "bookmark",
+                    "group-hover:text-gray-700": name === "share",
+                  })}
+                >
+                  {count}
+                </span>
               </div>
             ))}
           </div>
