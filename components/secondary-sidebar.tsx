@@ -227,7 +227,14 @@ export default function SecondarySidebar() {
           </Button>
         </div>
 
-        <p className="text-purple-500">Show more</p>
+        <Button
+          asChild
+          size="lg"
+          variant={"outline"}
+          className="w-28 h-10 rounded-3xl border-none bg-none"
+        >
+          <p className="cursor-pointer text-purple-500">Show more</p>
+        </Button>
       </div>
     </div>
   );
