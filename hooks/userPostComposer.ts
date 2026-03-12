@@ -33,6 +33,10 @@ export function usePostComposer() {
     });
   }
 
+  function removeImage(index: number) {
+    setImages((prev) => prev.filter((_, i) => i !== index));
+  }
+
   return {
     text,
     images,
@@ -44,5 +48,7 @@ export function usePostComposer() {
     textareaRef,
     handleTextChange,
     addEmoji,
+
+    removeImage,
   };
 }

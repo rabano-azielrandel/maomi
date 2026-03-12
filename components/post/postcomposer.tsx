@@ -1,6 +1,6 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import { useRef } from "react";
 import {
   Image as ImageIcon,
   Smile,
@@ -8,10 +8,10 @@ import {
   MapPin,
   BarChart2,
 } from "lucide-react";
-
-import { Button } from "../ui/button";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "../ui/button";
 
 import { ComposerPlugin } from "@/types/home/composerplugin";
 import { usePostComposer } from "@/hooks/userPostComposer";
@@ -22,13 +22,14 @@ const EmojiPicker = dynamic(() => import("emoji-picker-react"), {
 });
 
 export default function PostComposer() {
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const composer = usePostComposer();
 
   const toolbarIcons: ComposerPlugin[] = [
     {
-      name: "image",
+      name: "file",
       icon: ImageIcon,
-      action: () => document.getElementById("imageUpload")?.click(),
+      action: () => document.getElementById("fileUpload")?.click(),
     },
     {
       name: "poll",
@@ -78,6 +79,49 @@ export default function PostComposer() {
           className="w-full bg-transparent outline-none resize-none overflow-hidden text-lg text-primary placeholder-gray-500"
         />
 
+        {/* file preview */}
+        {composer.images.length > 0 && (
+          <div className="grid grid-cols-2 gap-2 mt-3">
+            {composer.images.map((file, index) => {
+              const url = URL.createObjectURL(file);
+
+              return (
+                <div key={index} className="relative group">
+                  {/* Remove button */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      composer.removeImage(index);
+                    }}
+                    className="absolute top-2 right-2 z-20 bg-black/70 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs hover:bg-black"
+                  >
+                    ✕
+                  </button>
+
+                  {/* Media container */}
+                  <div className="overflow-hidden rounded-lg">
+                    {file.type.startsWith("video") ? (
+                      <video
+                        src={url}
+                        controls
+                        className="w-full max-h-[300px] object-cover"
+                      />
+                    ) : (
+                      <Image
+                        src={url}
+                        alt="preview"
+                        width={500}
+                        height={500}
+                        className="w-full max-h-[300px] object-cover"
+                      />
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
         {/* Footer */}
         <div className="flex items-center justify-between mt-3">
           {/* Icons */}
@@ -105,12 +149,21 @@ export default function PostComposer() {
 
             {/* Hidden file input for image uploads */}
             <input
+              ref={fileInputRef}
               type="file"
-              id="imageUpload"
+              id="fileUpload"
               accept="image/*,video/*"
               multiple
               className="hidden"
-              onChange={(e) => console.log(e.target.files)}
+              onChange={(e) => {
+                if (!e.target.files) return;
+
+                const files = Array.from(e.target.files);
+
+                composer.setImages((prev) => [...prev, ...files]);
+
+                e.target.value = "";
+              }}
             />
           </div>
 
