@@ -115,6 +115,7 @@ export default function PostCard({ post }: { post: Post }) {
                 />
 
                 <span
+                  onClick={action}
                   className={cn(
                     "text-sm transition",
                     hoverColors[name],
