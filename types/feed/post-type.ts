@@ -17,3 +17,10 @@ export type Post = {
   };
   media?: Media | null;
 };
+
+export type PostActionPlugin = {
+    name: string;
+    icon: any;
+    action: () => void;
+    count?: number;
+}

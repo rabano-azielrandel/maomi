@@ -1,9 +1,12 @@
-import { MessageCircle, Repeat2, Heart, Bookmark, Share } from "lucide-react";
+"use client";
 
+import { getPostCardActions } from "@/data/postcardData";
+import { Post } from "@/types/feed/post-type";
 import Image from "next/image";
-import { Post } from "@/types/feed/post";
 
 export default function PostCard({ post }: { post: Post }) {
+  const postcardIcons = getPostCardActions();
+
   return (
     <div className="border-b px-4 py-3 hover:bg-muted/30 transition cursor-pointer">
       <div className="flex gap-3">
@@ -82,23 +85,12 @@ export default function PostCard({ post }: { post: Post }) {
 
           {/* ACTIONS */}
           <div className="flex justify-between mt-3 text-muted-foreground max-w-md">
-            <div className="flex items-center gap-2 text-sm">
-              <MessageCircle size={18} />
-              <span>1</span>
-            </div>
-
-            <div className="flex items-center gap-2 text-sm">
-              <Repeat2 size={18} />
-              <span>4</span>
-            </div>
-
-            <div className="flex items-center gap-2 text-sm">
-              <Heart size={18} />
-              <span>6</span>
-            </div>
-
-            <Bookmark size={18} />
-            <Share size={18} />
+            {postcardIcons.map(({ name, icon: Icon, action, count }) => (
+              <div key={name} className="flex centerXY gap-1">
+                <Icon size={18} onClick={action} className="cursor-pointer" />
+                <span className="text-sm">{count}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

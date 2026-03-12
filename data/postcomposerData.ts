@@ -6,9 +6,9 @@ import {
   Settings2,
 } from "lucide-react";
 
-import { ComposerPlugin } from "@/types/home/composerplugin";
+import { IconActionPlugin } from "@/types/home/composer-type";
 
-export const getToolbarIcons = (composer: any): ComposerPlugin[] => [
+export const getComposerAction = (composer: any): IconActionPlugin[] => [
   {
     name: "file",
     icon: ImageIcon,

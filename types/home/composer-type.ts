@@ -1,4 +1,4 @@
-export type ComposerPlugin = {
+export type IconActionPlugin = {
     name: string;
     icon: any;
     action: () => void;

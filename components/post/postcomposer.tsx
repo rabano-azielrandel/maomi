@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { Button } from "../ui/button";
-import { getToolbarIcons } from "@/data/postcomposerData";
+import { getComposerAction } from "@/data/postcomposerData";
 import { usePostComposer } from "@/hooks/userPostComposer";
 import dynamic from "next/dynamic";
 import Image from "next/image";
@@ -16,7 +16,7 @@ const EmojiPicker = dynamic(() => import("emoji-picker-react"), {
 export default function PostComposer() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const composer = usePostComposer();
-  const toolbarIcons = getToolbarIcons(composer);
+  const toolbarIcons = getComposerAction(composer);
 
   return (
     <div className="flex gap-3 p-4 rounded-xl text-white w-full">
