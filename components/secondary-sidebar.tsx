@@ -178,10 +178,10 @@ export default function SecondarySidebar() {
             </div>
             <div className="flex flex-col">
               <p className="text-primary text-sm font-medium tracking-tight">
-                Maomi
+                azi
               </p>
               <p className="text-primary text-xs font-light tracking-wide">
-                @maomi
+                @asiyel
               </p>
             </div>
           </div>
@@ -209,10 +209,10 @@ export default function SecondarySidebar() {
             </div>
             <div className="flex flex-col">
               <p className="text-primary text-sm font-medium tracking-tight">
-                Maomi
+                jujoya
               </p>
               <p className="text-primary text-xs font-light tracking-wide">
-                @maomi
+                @angeliquejoyce
               </p>
             </div>
           </div>
