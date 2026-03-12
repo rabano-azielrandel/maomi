@@ -3,7 +3,7 @@ import {
   Smile,
   Calendar,
   MapPin,
-  BarChart2,
+  Settings2,
 } from "lucide-react";
 
 import { ComposerPlugin } from "@/types/home/composerplugin";
@@ -16,8 +16,8 @@ export const getToolbarIcons = (composer: any): ComposerPlugin[] => [
   },
   {
     name: "poll",
-    icon: BarChart2,
-    action: () => console.log("Open poll creator"),
+    icon: Settings2,
+    action: () => composer.togglePoll(),
   },
   {
     name: "emoji",

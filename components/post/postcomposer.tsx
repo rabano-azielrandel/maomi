@@ -87,6 +87,22 @@ export default function PostComposer() {
           </div>
         )}
 
+        {/* poll */}
+        {composer.showPoll && (
+          <div className="mt-3 p-3 border rounded-lg text-primary">
+            <input
+              type="text"
+              placeholder="Poll option 1"
+              className="w-full mb-2 p-2 bg-transparent border rounded"
+            />
+            <input
+              type="text"
+              placeholder="Poll option 2"
+              className="w-full mb-2 p-2 bg-transparent border rounded"
+            />
+          </div>
+        )}
+
         {/* Footer */}
         <div className="flex items-center justify-between mt-3">
           {/* Icons */}

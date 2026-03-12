@@ -6,7 +6,7 @@ export function usePostComposer() {
   const [text, setText] = useState("");
   const [images, setImages] = useState<File[]>([]);
   const [showEmoji, setShowEmoji] = useState(false);
-
+  const [showPoll, setShowPoll] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   function resizeTextarea() {
@@ -37,10 +37,15 @@ export function usePostComposer() {
     setImages((prev) => prev.filter((_, i) => i !== index));
   }
 
+  function togglePoll() {
+    setShowPoll((prev) => !prev);
+  }
+
   return {
     text,
     images,
     showEmoji,
+    showPoll,
 
     setImages,
     setShowEmoji,
@@ -48,7 +53,8 @@ export function usePostComposer() {
     textareaRef,
     handleTextChange,
     addEmoji,
-
     removeImage,
+    togglePoll,
+
   };
 }
