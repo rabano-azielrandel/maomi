@@ -64,16 +64,16 @@ export default function SecondarySidebar() {
 
         <div className="flex flex-col">
           <p className="text-primary text-sm font-medium tracking-tight">
-            BINI Builds Hype for 'Unang Kilig' Dance Practice Video
+            Maomi has arrived. Let the mewts begin
           </p>
           <p className="text-primary text-xs font-light tracking-tight">
-            1 day ago · Entertainment · 42.9K posts
+            1 day ago · Entertainment · 471.9K posts
           </p>
         </div>
 
         <div className="flex flex-col">
           <p className="text-primary text-sm font-medium tracking-tight">
-            BINI Builds Hype for 'Unang Kilig' Dance Practice Video
+            Don’t miss out — the mewts begin on Maomi
           </p>
           <p className="text-primary text-xs font-light tracking-tight">
             1 day ago · Entertainment · 42.9K posts
