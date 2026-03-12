@@ -1,6 +1,3 @@
-import { redirect } from "next/navigation";
-
-import { createClient } from "@/lib/supabase/server";
 import { InfoIcon } from "lucide-react";
 import PostComposer from "@/components/post/postcomposer";
 import PostFeed from "@/components/feed/postfeed";
@@ -78,17 +75,6 @@ export const samplePosts = [
     },
   },
 ];
-
-async function UserDetails() {
-  const supabase = await createClient();
-  const { data, error } = await supabase.auth.getClaims();
-
-  if (error || !data?.claims) {
-    redirect("/login");
-  }
-
-  return JSON.stringify(data.claims, null, 2);
-}
 
 export default function ProtectedPage() {
   return (

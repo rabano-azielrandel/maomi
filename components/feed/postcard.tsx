@@ -1,33 +1,7 @@
-import {
-  MessageCircle,
-  Repeat2,
-  Heart,
-  BarChart2,
-  Bookmark,
-  Share,
-} from "lucide-react";
+import { MessageCircle, Repeat2, Heart, Bookmark, Share } from "lucide-react";
 
 import Image from "next/image";
-
-type Media = {
-  type: "image" | "video" | "link";
-  url?: string;
-  thumbnail?: string;
-  title?: string;
-  description?: string;
-  site?: string;
-};
-
-type Post = {
-  id: string;
-  content: string;
-  created_at: string;
-  profiles?: {
-    username?: string;
-    avatar_url?: string;
-  };
-  media?: Media | null;
-};
+import { Post } from "@/types/feed/post";
 
 export default function PostCard({ post }: { post: Post }) {
   return (
@@ -123,7 +97,6 @@ export default function PostCard({ post }: { post: Post }) {
               <span>6</span>
             </div>
 
-            <BarChart2 size={18} />
             <Bookmark size={18} />
             <Share size={18} />
           </div>
