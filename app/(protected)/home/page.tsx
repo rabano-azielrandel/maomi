@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
 import { InfoIcon } from "lucide-react";
-import PostComposer from "@/components/ui/postcomposer";
+import PostComposer from "@/components/post/postcomposer";
 import PostFeed from "@/components/feed/postfeed";
 
 export const samplePosts = [

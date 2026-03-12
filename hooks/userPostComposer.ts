@@ -1,23 +1,48 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export function usePostComposer() {
   const [text, setText] = useState("");
   const [images, setImages] = useState<File[]>([]);
   const [showEmoji, setShowEmoji] = useState(false);
 
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  function resizeTextarea() {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    textarea.style.height = "auto";
+    textarea.style.height = textarea.scrollHeight + "px";
+  }
+
+  function handleTextChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    setText(e.target.value);
+    resizeTextarea();
+  }
+
   function addEmoji(emoji: string) {
-    setText((prev) => prev + emoji);
+    setText((prev) => {
+      const newText = prev + emoji;
+
+      // resize after state update
+      setTimeout(resizeTextarea, 0);
+
+      return newText;
+    });
   }
 
   return {
     text,
-    setText,
     images,
-    setImages,
     showEmoji,
+
+    setImages,
     setShowEmoji,
+
+    textareaRef,
+    handleTextChange,
     addEmoji,
   };
 }

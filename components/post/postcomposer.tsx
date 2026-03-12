@@ -9,7 +9,7 @@ import {
   BarChart2,
 } from "lucide-react";
 
-import { Button } from "./button";
+import { Button } from "../ui/button";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -69,11 +69,13 @@ export default function PostComposer() {
       <div className="flex flex-col flex-1">
         {/* Textarea */}
         <textarea
+          ref={composer.textareaRef}
           placeholder="What's happening?"
           value={composer.text}
-          onChange={(e) => composer.setText(e.target.value)}
-          className="w-full bg-transparent outline-none resize-none text-lg text-primary placeholder-gray-500"
-          rows={2}
+          onChange={composer.handleTextChange}
+          rows={1}
+          spellCheck={false}
+          className="w-full bg-transparent outline-none resize-none overflow-hidden text-lg text-primary placeholder-gray-500"
         />
 
         {/* Footer */}
