@@ -4,8 +4,10 @@ import { usePostCardTool } from "@/hooks/postCardTools";
 import { getPostCardActions } from "@/data/postcardData";
 import { Post, PostActionName } from "@/types/feed/post-type";
 import { cn } from "@/lib/utils";
+import { Send } from "lucide-react";
 import Image from "next/image";
 
+// in the post pass the POST, and User Details such as username, email, and avatar
 export default function PostCard({ post }: { post: Post }) {
   const card = usePostCardTool();
   const postcardIcons = getPostCardActions(card);
@@ -127,6 +129,44 @@ export default function PostCard({ post }: { post: Post }) {
               </div>
             ))}
           </div>
+
+          {/* COMMENT SECTION */}
+          {card.showComment && (
+            <div className="mt-3 border-t pt-3">
+              <div className="flex gap-2 items-start">
+                {/* Avatar */}
+                <Image
+                  src={"/image/azi.png"}
+                  alt="avatar"
+                  width={32}
+                  height={32}
+                  className="w-8 h-8 rounded-full"
+                />
+
+                {/* Input */}
+                <div className="flex flex-1 items-center gap-2 border rounded-full px-3 py-1">
+                  <input
+                    value={card.comment}
+                    onChange={(e) => card.setComment(e.target.value)}
+                    placeholder="Write a comment..."
+                    className="flex-1 bg-transparent outline-none text-sm"
+                  />
+
+                  {/* Send Icon */}
+                  <Send
+                    size={18}
+                    onClick={() => card.sendComment()}
+                    className={cn(
+                      "cursor-pointer transition",
+                      card.comment.trim()
+                        ? "text-blue-500 hover:text-blue-600"
+                        : "text-muted-foreground cursor-not-allowed",
+                    )}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

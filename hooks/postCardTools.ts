@@ -7,6 +7,7 @@ export function usePostCardTool () {
     const [isRepost, setIsRepost] = useState(false);
     const [isLike, setIsLike] = useState(false);
     const [isBookmark, setIsBookmark] = useState(false);
+    const [comment, setComment] = useState("");
 
     function toggleComment () {
         setShowComment((prev) => !prev);
@@ -24,14 +25,29 @@ export function usePostCardTool () {
         setIsBookmark((prev) => !prev);
     }
 
+    function resetComment() {
+        setComment("");
+    }
+
+    function sendComment() {
+        if (!comment.trim()) return;
+
+        console.log("comment:", comment);
+
+        setComment("");
+    }
 
     return {
         showComment,
+        comment,
         isRepost,
         isLike,
         isBookmark,
 
         toggleComment,
+        setComment,
+        resetComment,
+        sendComment,
         toggleRepost,
         toggleLike,
         toggleBookmark
