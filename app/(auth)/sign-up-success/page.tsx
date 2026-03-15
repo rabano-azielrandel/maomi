@@ -5,6 +5,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Page() {
   return (
@@ -23,6 +25,11 @@ export default function Page() {
                 You&apos;ve successfully signed up. Please check your email to
                 confirm your account before signing in.
               </p>
+              <div className="flex justify-end mt-4">
+                <Button asChild size="sm" variant={"outline"}>
+                  <Link href="/login">Sign in</Link>
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </div>
