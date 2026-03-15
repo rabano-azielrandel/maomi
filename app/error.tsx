@@ -28,7 +28,7 @@ export default function Error({
         </div>
 
         <h1 className="mb-2 text-4xl font-extrabold text-white">
-          Something went wrong
+          System Alert
         </h1>
 
         <p className="mb-6 text-white/80">
