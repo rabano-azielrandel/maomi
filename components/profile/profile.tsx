@@ -10,10 +10,10 @@ export default function profile() {
       {/* banner */}
       <div className="relative h-40 bg-gray-600">
         <Image
-          src={"/image/hisoka.jpg"}
+          src={"/image/banner2.jpg"}
           alt="banner"
           fill
-          className=" object-cover"
+          className=" object-cover object-[50%_25%]"
         />
       </div>
       {/* profile section */}
@@ -26,8 +26,8 @@ export default function profile() {
 
           {/* text info */}
           <div className="mt-10">
-            <h2 className="text-xl font-bold">randel rabano</h2>
-            <p className="text-gray-400">@RabanoRand47514</p>
+            <h2 className="text-xl font-bold">aziel randel rabano</h2>
+            <p className="text-gray-400">@asiyel</p>
 
             <p className="text-gray-400 text-sm mt-2">Joined February 2024</p>
 
