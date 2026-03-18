@@ -1,9 +1,11 @@
 import Header from "@/components/profile/header";
+import Profile from "@/components/profile/profile";
 
 const page = () => {
   return (
     <div className="flex flex-col gap-4 relative">
       <Header displayName="aziel randel rabano" postCount={1000} />
+      <Profile />
 
       <div className="min-h-screen bg-black text-white">
         {/* Header */}
