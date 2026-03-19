@@ -31,7 +31,7 @@ export default function PostCard({ post }: { post: Post }) {
       <div className="flex gap-3">
         {/* Avatar */}
         <Image
-          src={post.profiles?.avatar_url ?? "/avatar.png"}
+          src={post.profiles?.avatar_url ?? "/avatar.jpg"}
           alt="avatar"
           width={100}
           height={100}

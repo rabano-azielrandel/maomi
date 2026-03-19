@@ -1,6 +1,8 @@
 import Header from "@/components/profile/header";
 import Profile from "@/components/profile/profile";
 import Tabs from "@/components/profile/tabs";
+import Userfeed from "@/components/profile/userfeed";
+import { samplePosts } from "@/data/postfeedData";
 
 export default function page() {
   return (
@@ -8,8 +10,9 @@ export default function page() {
       <Header displayName="aziel randel rabano" postCount={1000} />
       <Profile />
       <Tabs />
-      {/* reuse feed but for own post only */}
-      <p>no post yet</p>
+      <div className="overflow-y-auto">
+        <Userfeed posts={samplePosts} />
+      </div>
     </div>
   );
 }
