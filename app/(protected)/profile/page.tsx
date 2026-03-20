@@ -1,16 +1,16 @@
-import ProfileContent from "./profilecontent";
-import { Suspense } from "react";
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
 
-export default async function page() {
-  return (
-    <div className="flex flex-col gap-4 relative">
-      <Suspense
-        fallback={
-          <div className="h-screen flex centerXY">Loading profile...</div>
-        }
-      >
-        <ProfileContent />
-      </Suspense>
-    </div>
-  );
+export default async function Page() {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/login"); // or wherever your auth page is
+  }
+
+  redirect(`/profile/${user.id}`);
 }

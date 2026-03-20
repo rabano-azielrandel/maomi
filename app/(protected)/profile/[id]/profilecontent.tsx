@@ -5,7 +5,7 @@ import Userfeed from "@/components/profile/userfeed";
 import { samplePosts } from "@/data/postfeedData";
 import { getUserData, getUserPostCount } from "@/lib/services/profileService";
 
-export default async function profilecontent() {
+export default async function ProfileContent({ userID }: { userID: string }) {
   const user = await getUserData();
   const post = await getUserPostCount();
 
