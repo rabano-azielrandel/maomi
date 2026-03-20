@@ -3,8 +3,14 @@
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { Camera } from "lucide-react";
+import { ProfileProps } from "@/types/profile/user";
 
-export default function profile() {
+export default function profile({ user }: ProfileProps) {
+  const formatted = new Date(user.created_at).toLocaleDateString("en-US", {
+    month: "long",
+    year: "numeric",
+  });
+
   return (
     <div className="flex flex-col gap-2">
       {/* banner */}
@@ -26,10 +32,10 @@ export default function profile() {
 
           {/* text info */}
           <div className="mt-10">
-            <h2 className="text-xl font-bold">aziel randel rabano</h2>
-            <p className="text-gray-400">@asiyel</p>
+            <h2 className="text-xl font-bold">{user.display_name}</h2>
+            <p className="text-gray-400">{user.username}</p>
 
-            <p className="text-gray-400 text-sm mt-2">Joined February 2024</p>
+            <p className="text-gray-400 text-sm mt-2">Joined {formatted}</p>
 
             {/* Stats */}
             <div className="flex gap-4 mt-2 text-sm">

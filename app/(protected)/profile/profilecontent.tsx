@@ -12,7 +12,7 @@ export default async function profilecontent() {
   return (
     <div className="flex flex-col gap-4 relative">
       <Header displayName={user.display_name || "Anonymous"} postCount={post} />
-      <Profile />
+      <Profile user={user} />
       <Tabs />
       <div className="overflow-y-auto">
         <Userfeed posts={samplePosts} />

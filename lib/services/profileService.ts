@@ -12,7 +12,7 @@ export async function getUserData() {
     const { data, error: profileError } = await supabase
     .schema("maomi")
     .from("profiles")
-    .select("username, display_name, avatar_url, bio")
+    .select("username, display_name, avatar_url, bio, created_at")
     .eq('id', user.id)
     .single();
 
@@ -37,4 +37,31 @@ export async function getUserPostCount() {
     if (countError) throw new Error (countError.message);
 
     return count ?? 0;
+}
+
+export async function getUserFollow(userId: string) {
+  const supabase = await createClient();
+
+  // followers (people who follow this user)
+  const { count: followers, error: followersError } = await supabase
+    .schema("maomi")
+    .from("follows")
+    .select("*", { count: "exact", head: true })
+    .eq("following_id", userId);
+
+  if (followersError) throw new Error(followersError.message);
+
+  // following (people this user follows)
+  const { count: following, error: followingError } = await supabase
+    .schema("maomi")
+    .from("follows")
+    .select("*", { count: "exact", head: true })
+    .eq("follower_id", userId);
+
+  if (followingError) throw new Error(followingError.message);
+
+  return {
+    followers: followers ?? 0,
+    following: following ?? 0,
+  };
 }
