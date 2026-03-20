@@ -43,13 +43,13 @@ export async function getUserFollow(userId: string) {
   const supabase = await createClient();
 
   // followers (people who follow this user)
-  const { count: followers, error: followersError } = await supabase
+  const { count: follower, error: followersError } = await supabase
     .schema("maomi")
     .from("follows")
     .select("*", { count: "exact", head: true })
     .eq("following_id", userId);
 
-  if (followersError) throw new Error(followersError.message);
+  if (followersError) throw new Error(followersError?.message || "Followers Error");
 
   // following (people this user follows)
   const { count: following, error: followingError } = await supabase
@@ -58,10 +58,10 @@ export async function getUserFollow(userId: string) {
     .select("*", { count: "exact", head: true })
     .eq("follower_id", userId);
 
-  if (followingError) throw new Error(followingError.message);
+  if (followingError) throw new Error(followingError?.message || "Following Error");
 
   return {
-    followers: followers ?? 0,
+    follower: follower ?? 0,
     following: following ?? 0,
   };
 }

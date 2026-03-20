@@ -6,13 +6,14 @@ export type User = {
   created_at: string;
 };
 
-export type UserFollows = {
-  following: number | null;
-  follower: number | null;
-}
+type UserFollows = {
+  follower: number;
+  following: number;
+};
 
 export type ProfileProps = {
   user: User;
+  follows: UserFollows;
   onUpdate?: (data: User) => void;
 };
 

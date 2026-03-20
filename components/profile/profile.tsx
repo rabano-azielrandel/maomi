@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { Camera } from "lucide-react";
 import { ProfileProps } from "@/types/profile/user";
 
-export default function profile({ user }: ProfileProps) {
+export default function profile({ user, follows }: ProfileProps) {
   const formatted = new Date(user.created_at).toLocaleDateString("en-US", {
     month: "long",
     year: "numeric",
@@ -40,11 +40,15 @@ export default function profile({ user }: ProfileProps) {
             {/* Stats */}
             <div className="flex gap-4 mt-2 text-sm">
               <span>
-                <span className="font-bold text-primary">100</span>{" "}
+                <span className="font-bold text-primary">
+                  {follows.following}
+                </span>{" "}
                 <span className="text-gray-400">Following</span>
               </span>
               <span>
-                <span className="font-bold text-primary">1</span>{" "}
+                <span className="font-bold text-primary">
+                  {follows.follower}
+                </span>{" "}
                 <span className="text-gray-400">Follower</span>
               </span>
             </div>
