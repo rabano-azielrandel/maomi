@@ -1,7 +1,7 @@
 import Header from "@/components/profile/header";
 import Profile from "@/components/profile/profile";
 import Tabs from "@/components/profile/tabs";
-import Userfeed from "@/components/profile/userfeed";
+import ProfileFeed from "@/components/feed/profilefeed";
 import { samplePosts } from "@/data/postfeedData";
 import {
   getUserData,
@@ -20,7 +20,7 @@ export default async function ProfileContent({ userID }: { userID: string }) {
       <Profile user={user} follows={follows} />
       <Tabs />
       <div className="overflow-y-auto">
-        <Userfeed posts={samplePosts} />
+        <ProfileFeed posts={samplePosts} />
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import { Camera } from "lucide-react";
 import { ProfileProps } from "@/types/profile/user";
 import profileTool from "@/hooks/profileTools";
+import EditProfileForm from "../form/edit-profile-form";
 
 export default function profile({ user, follows }: ProfileProps) {
   const tool = profileTool();
@@ -12,6 +13,14 @@ export default function profile({ user, follows }: ProfileProps) {
     month: "long",
     year: "numeric",
   });
+
+  const mockUser = {
+    username: "azi_dev",
+    display_name: "Azi",
+    avatar_url: "https://i.pravatar.cc/150?img=3",
+    banner_url: "https://picsum.photos/800/200",
+    bio: "I build stuff with Next.js and Supabase 🚀",
+  };
 
   return (
     <div className="flex flex-col gap-2">
@@ -79,6 +88,12 @@ export default function profile({ user, follows }: ProfileProps) {
           </Button>
         </div>
       </div>
+
+      {tool.openEditProfileForm && (
+        <div className="absolute inset-10 h-52 z-10">
+          <EditProfileForm {...mockUser} tool={tool} />
+        </div>
+      )}
     </div>
   );
 }

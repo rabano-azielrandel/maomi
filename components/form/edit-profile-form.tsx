@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "@/types/profile/user";
+import { EditUser } from "@/types/profile/user";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,7 +20,8 @@ export default function EditProfileForm({
   avatar_url,
   banner_url,
   bio,
-}: User) {
+  tool,
+}: EditUser) {
   const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Event object:", e); // Logs the full synthetic event
@@ -31,10 +32,20 @@ export default function EditProfileForm({
     <div className={cn("flex flex-col gap-6")}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Login</CardTitle>
-          <CardDescription>
-            Enter your email below to login to your account
-          </CardDescription>
+          <CardTitle className="text-2xl flex justify-between">
+            <p>Edit Profile</p>
+            <div>
+              <Button
+                variant={"outline"}
+                size={"lg"}
+                className="h-6 w-6 flex centerXY p-4 rounded-full border border-primary cursor-pointer"
+                onClick={tool.changeEditProfileStatus}
+              >
+                ✕
+              </Button>
+            </div>
+          </CardTitle>
+          <CardDescription>Update your information</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleUpdate}>

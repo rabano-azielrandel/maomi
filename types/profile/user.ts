@@ -7,6 +7,15 @@ export type User = {
   created_at: string;
 };
 
+export type EditUser = {
+  username: string | null;
+  display_name: string | null;
+  avatar_url: string | null;
+  banner_url: string | null;
+  bio: string | null;
+  tool?: any;
+}
+
 type UserFollows = {
   follower: number;
   following: number;
