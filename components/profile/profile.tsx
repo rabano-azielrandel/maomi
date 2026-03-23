@@ -15,19 +15,31 @@ export default function profile({ user, follows }: ProfileProps) {
     <div className="flex flex-col gap-2">
       {/* banner */}
       <div className="relative h-40 bg-gray-600">
-        <Image
-          src={"/image/banner2.jpg"}
-          alt="banner"
-          fill
-          className=" object-cover object-[50%_25%]"
-        />
+        {user.banner_url && (
+          <Image
+            src={"/image/banner2.jpg"}
+            alt="banner"
+            fill
+            className=" object-cover object-[50%_25%]"
+          />
+        )}
       </div>
       {/* profile section */}
       <div className="flex">
         <div className="relative w-[70%] px-4 ">
           {/* avatar */}
           <div className="w-24 h-24 -mt-10 flex centerXY rounded-full border-4 border-primary bg-gray-700 overflow-hidden">
-            <Camera color="gray" />
+            {!user.avatar_url ? (
+              <Camera color="gray" className="cursor-pointer" />
+            ) : (
+              <Image
+                src={user.avatar_url}
+                alt="avatar"
+                width={100}
+                height={100}
+                className="w-30 h-30 object-contain"
+              />
+            )}
           </div>
 
           {/* text info */}
