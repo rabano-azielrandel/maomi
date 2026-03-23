@@ -15,7 +15,7 @@ export default async function ProfileContent({ userID }: { userID: string }) {
   const follows = await getUserFollow(userID);
 
   return (
-    <div className="flex flex-col gap-4 relative">
+    <div className="flex flex-col relative">
       <Header displayName={user.display_name || "Anonymous"} postCount={post} />
       <Profile user={user} follows={follows} />
       <Tabs />
