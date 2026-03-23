@@ -4,8 +4,10 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import { Camera } from "lucide-react";
 import { ProfileProps } from "@/types/profile/user";
+import profileTool from "@/hooks/profileTools";
 
 export default function profile({ user, follows }: ProfileProps) {
+  const tool = profileTool();
   const formatted = new Date(user.created_at).toLocaleDateString("en-US", {
     month: "long",
     year: "numeric",
@@ -28,9 +30,9 @@ export default function profile({ user, follows }: ProfileProps) {
       <div className="flex">
         <div className="relative w-[70%] px-4 ">
           {/* avatar */}
-          <div className="w-24 h-24 -mt-10 flex centerXY rounded-full border-4 border-primary bg-gray-700 overflow-hidden">
+          <div className="w-24 h-24 -mt-10 flex centerXY rounded-full border-4 border-primary bg-gray-700 overflow-hidden cursor-pointer">
             {!user.avatar_url ? (
-              <Camera color="gray" className="cursor-pointer" />
+              <Camera color="gray" />
             ) : (
               <Image
                 src={user.avatar_url}
@@ -71,7 +73,7 @@ export default function profile({ user, follows }: ProfileProps) {
             variant={"outline"}
             size={"lg"}
             className="rounded-full border border-primary"
-            onClick={() => console.log("call hook")}
+            onClick={tool.changeEditProfileStatus}
           >
             Edit Profile
           </Button>
