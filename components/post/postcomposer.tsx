@@ -1,12 +1,11 @@
 "use client";
 
-import { useRef } from "react";
+import { HtmlHTMLAttributes, useRef } from "react";
 import { Button } from "../ui/button";
 import { getComposerAction } from "@/data/postcomposerData";
 import { usePostComposer } from "@/hooks/userPostComposer";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import Link from "next/link";
 
 // Dynamic import for emoji-picker-react (client only)
 const EmojiPicker = dynamic(() => import("emoji-picker-react"), {
@@ -17,6 +16,33 @@ export default function PostComposer() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const composer = usePostComposer();
   const toolbarIcons = getComposerAction(composer);
+
+  const handleSubmit = async () => {
+    try {
+      if (!composer.text && composer.images.length === 0) return;
+
+      const formData = new FormData();
+
+      formData.append("content", composer.text);
+
+      composer.images.forEach((file) => {
+        formData.append("files", file);
+      });
+
+      const res = await fetch("/api/insert-post", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) throw new Error("Failed to post");
+
+      composer.setText("");
+      composer.setImages([]);
+      composer.setShowEmoji(false);
+    } catch (error: any) {
+      console.log(error.message ?? "Post Failed");
+    }
+  };
 
   return (
     <div className="flex gap-3 p-4 rounded-xl text-white w-full">
@@ -150,12 +176,13 @@ export default function PostComposer() {
 
           {/* Post Button */}
           <Button
+            onClick={handleSubmit}
             asChild
             size="sm"
             variant={"default"}
-            className="h-9 rounded-3xl"
+            className="h-9 rounded-3xl cursor-pointer"
           >
-            <Link href="#">POST</Link>
+            <p>POST</p>
           </Button>
         </div>
       </div>

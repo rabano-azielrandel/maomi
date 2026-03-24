@@ -1,4 +1,3 @@
-import { create } from "domain";
 import { createClient } from "../supabase/server";
 import { User } from "@/types/profile/user";
 

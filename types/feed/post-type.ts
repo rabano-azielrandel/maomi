@@ -1,21 +1,33 @@
-type Media = {
-  type: "image" | "video" | "link";
-  url?: string;
-  thumbnail?: string;
-  title?: string;
-  description?: string;
-  site?: string;
-};
-
 export type Post = {
   id: string;
-  content: string;
+  user_id: string;
+  content: string | null;
+  like_count: number;
+  reply_count: number;
+  repost_count: number;
   created_at: string;
-  profiles?: {
-    username?: string;
-    avatar_url?: string;
-  };
-  media?: Media | null;
+};
+
+export type Media = {
+  id: string;
+  post_id: string;
+  url: string;
+  media_type: "image" | "video";
+  width?: number;
+  height?: number;
+  created_at: string;
+};
+
+export type CreatePostInput = {
+  userId: string;
+  content?: string;
+
+  // server-side file object
+  files?: {
+    buffer: ArrayBuffer;
+    name: string;
+    type: string;
+  }[];
 };
 
 export type PostActionName =

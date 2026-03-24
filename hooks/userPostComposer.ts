@@ -47,6 +47,7 @@ export function usePostComposer() {
     showEmoji,
     showPoll,
 
+    setText,
     setImages,
     setShowEmoji,
 
