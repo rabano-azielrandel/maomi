@@ -41,7 +41,7 @@ export default function profile({ user, follows }: ProfileProps) {
           {/* avatar */}
           <div className="w-24 h-24 -mt-10 flex centerXY rounded-full border-4 border-primary bg-gray-700 overflow-hidden cursor-pointer">
             {!user.avatar_url ? (
-              <Camera color="gray" />
+              <Camera color="gray" onClick={tool.changeEditProfileStatus} />
             ) : (
               <Image
                 src={user.avatar_url}
