@@ -1,36 +1,65 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function profileTool() {
-    const [activeTab, setActiveTab] = useState("Posts");
-    const [openEditProfileForm, setOpenEditProfileForm] = useState(false);
+  const [activeTab, setActiveTab] = useState("Posts");
+  const [openEditProfileForm, setOpenEditProfileForm] = useState(false);
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [bannerFile, setBannerFile] = useState<File | null>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  const [bannerPreview, setBannerPreview] = useState<string | null>(null);
 
-    useEffect(() => {
-        // const timer = setTimeout(() => {
-            
-        // }, 1000);
+  function changeTab(tab: string) {
+    setActiveTab(tab);
+  }
 
-        
-        // return () => clearTimeout(timer);
+  function changeEditProfileStatus() {
+    setOpenEditProfileForm((prev) => !prev);
+  }
 
-        console.log('useEffect: ', openEditProfileForm);
-    }, [openEditProfileForm]);
+  // ✅ Set image from file input
+  function updateImage(type: "avatar" | "banner", file: File) {
+    const previewUrl = URL.createObjectURL(file);
 
-    function changeTab(tab:string) {
-        setActiveTab(tab);
+    if (type === "avatar") {
+      setAvatarFile(file);
+      setAvatarPreview(previewUrl);
+    } else {
+      setBannerFile(file);
+      setBannerPreview(previewUrl);
     }
+  }
 
-    function changeEditProfileStatus() {
-        setOpenEditProfileForm ((prev) => !prev);
-        console.log('change activated: ', openEditProfileForm);
+  function removeImage(type: "avatar" | "banner") {
+    if (type === "avatar") {
+      setAvatarFile(null);
+      setAvatarPreview(null);
+    } else {
+      setBannerFile(null);
+      setBannerPreview(null);
     }
+  }
 
-    return {
-        activeTab,
-        openEditProfileForm,
+  function initializeImages(avatarUrl?: string | null, bannerUrl?: string | null) {
+    if (avatarUrl) setAvatarPreview(avatarUrl);
+    if (bannerUrl) setBannerPreview(bannerUrl);
+  }
 
-        changeEditProfileStatus,
-        changeTab
-    }
+  return {
+    activeTab,
+    openEditProfileForm,
+
+    avatarFile,
+    bannerFile,
+    avatarPreview,
+    bannerPreview,
+
+    changeTab,
+    changeEditProfileStatus,
+
+    updateImage,
+    removeImage,
+    initializeImages,
+  };
 }
