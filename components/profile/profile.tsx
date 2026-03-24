@@ -17,8 +17,8 @@ export default function profile({ user, follows }: ProfileProps) {
   const mockUser = {
     username: "azi_dev",
     display_name: "Azi",
-    avatar_url: "https://i.pravatar.cc/150?img=3",
-    banner_url: "https://picsum.photos/800/200",
+    avatar_url: "/image/azi.png",
+    banner_url: "/image/banner2.jpg",
     bio: "I build stuff with Next.js and Supabase 🚀",
   };
 
@@ -89,9 +89,19 @@ export default function profile({ user, follows }: ProfileProps) {
         </div>
       </div>
 
+      {/* FORM */}
       {tool.openEditProfileForm && (
-        <div className="absolute inset-10 h-52 z-10">
-          <EditProfileForm {...mockUser} tool={tool} />
+        <div className="fixed inset-0 z-50 flex centerXY bg-red-400/5">
+          {/* BACKDROP */}
+          <div
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={tool.changeEditProfileStatus} // click outside to close
+          />
+
+          {/* MODAL CONTENT */}
+          <div className="relative z-10 w-full max-w-2xl mr-24">
+            <EditProfileForm {...mockUser} tool={tool} />
+          </div>
         </div>
       )}
     </div>
