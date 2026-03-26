@@ -125,15 +125,14 @@ export async function updateUserProfile(data: Partial<UpdateUser>) {
   }
 
   // 6. Run update
-  const { data: updateData, error: updateError } = await supabase
+  const { data: updatedRows, error: updateError } = await supabase
     .schema("maomi")
     .from("profiles")
     .update(updatePayload)
     .eq("id", user.id)
-    .select()
-    .single();
+    .select();
 
   if (updateError) throw new Error(updateError.message);
 
-  return updateData;
+  return { data: updatedRows };
 }
