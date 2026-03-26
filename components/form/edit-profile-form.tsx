@@ -152,7 +152,7 @@ export default function EditProfileForm({
                     <img
                       src={tool.bannerPreview}
                       alt="banner preview"
-                      className="w-full h-full object-cover rounded-md border"
+                      className="w-full h-full object-cover object-[50%_25%] rounded-md border"
                     />
 
                     <button
