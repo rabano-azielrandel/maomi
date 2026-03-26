@@ -41,7 +41,7 @@ export default function EditProfileForm({
     e.preventDefault();
 
     try {
-      // 1️⃣ Prepare UpdateUser object
+      // 1️ Prepare UpdateUser object
       const updateData: UpdateUser = {
         username: formUsername || undefined,
         display_name: formDisplayName || undefined,
@@ -61,7 +61,7 @@ export default function EditProfileForm({
         return;
       }
 
-      // 2️⃣ Convert to FormData for fetch
+      // 2️ Convert to FormData for fetch
       const form = new FormData();
       Object.entries(updateData).forEach(([key, value]) => {
         if (value instanceof File) {
@@ -71,9 +71,9 @@ export default function EditProfileForm({
         }
       });
 
-      // 3️⃣ Send request to your route
+      // 3️ Send request to your route
       const res = await fetch("/api/update-profile", {
-        method: "POST", // or PATCH
+        method: "PATCH",
         body: form,
       });
 
@@ -83,11 +83,11 @@ export default function EditProfileForm({
 
       console.log("Profile updated:", result);
 
-      // 4️⃣ Update previews after successful update
+      // 4️ Update previews after successful update
       if (result.avatar_url) tool.setAvatarPreview(result.avatar_url);
       if (result.banner_url) tool.setBannerPreview(result.banner_url);
 
-      // 5️⃣ Close the edit form
+      // 5️ Close the edit form
       tool.changeEditProfileStatus();
     } catch (error: any) {
       console.error("Update failed:", error.message);

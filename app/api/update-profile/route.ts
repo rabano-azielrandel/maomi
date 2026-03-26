@@ -2,7 +2,7 @@ import { NextResponse, NextRequest } from "next/server";
 import { updateUserProfile } from "@/lib/services/profileService";
 import { UpdateUser } from "@/types/profile/user";
 
-export async function POST(req: NextRequest) {
+export async function PATCH(req: NextRequest) {
   try {
     const formData = await req.formData();
     
