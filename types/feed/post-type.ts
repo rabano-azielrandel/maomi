@@ -19,7 +19,7 @@ export type Media = {
   user_id: string;
 };
 
-export type PostCard = {
+export type PostCards = {
   id: string;
   content: string;
   created_at: string;
@@ -29,6 +29,7 @@ export type PostCard = {
   reply_count: number;
   repost_count: number;
   media: string[] | null;
+  media_type: string[] | null;
 };
 
 export type CreatePostInput = {

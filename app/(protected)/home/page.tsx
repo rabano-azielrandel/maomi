@@ -1,9 +1,11 @@
 import { InfoIcon } from "lucide-react";
 import PostComposer from "@/components/post/postcomposer";
 import PostFeed from "@/components/feed/postfeed";
-import { samplePosts } from "@/data/postfeedData";
+import { getPosts } from "@/lib/services/postService";
 
-export default function ProtectedPage() {
+export default async function ProtectedPage() {
+  const postData = await getPosts();
+
   return (
     <div className="flex-1 w-full min-h-screen flex flex-col">
       <nav className="sticky top-0 z-50 h-[85px] flex items-center shadow-sm bg-background">
@@ -25,7 +27,7 @@ export default function ProtectedPage() {
       </div>
       {/* feed */}
       <div className="overflow-y-auto">
-        <PostFeed posts={samplePosts} />
+        <PostFeed posts={postData} />
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { createClient } from "../supabase/server";
-import { CreatePostInput } from "@/types/feed/post-type";
+import { CreatePostInput, PostCards } from "@/types/feed/post-type";
 
 export async function createPost(input: CreatePostInput) {
   const supabase = await createClient();
@@ -58,5 +58,22 @@ export async function createPost(input: CreatePostInput) {
   return post;
 }
 
+export async function getPosts(){
+  const supabase = await createClient();
 
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
+
+  console.log('userid post: ', user?.id);
+
+  if (!user || userError) throw new Error(userError?.message ?? "User not found");
+
+  
+
+  const { data, error } = await supabase
+  .rpc('get_posts_with_media', {p_user_id: user.id});
+
+  if (error) throw new Error(error?.message ?? "Fetch posts failed");
+
+  return data as PostCards[];
+}
 
