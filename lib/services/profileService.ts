@@ -12,7 +12,7 @@ export async function getUserData() {
     const { data, error: profileError } = await supabase
     .schema("maomi")
     .from("profiles")
-    .select("username, display_name, avatar_url, bio, created_at")
+    .select("username, display_name, avatar_url, banner_url, bio, created_at")
     .eq('id', user.id)
     .single();
 

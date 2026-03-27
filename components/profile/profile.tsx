@@ -30,10 +30,11 @@ export default function profile({ user, follows }: ProfileProps) {
       <div className="relative h-40 bg-gray-600">
         {user.banner_url && (
           <Image
-            src={"/image/banner2.jpg"}
+            src={user.banner_url}
             alt="banner"
-            fill
-            className=" object-cover object-[50%_25%]"
+            width={1920}
+            height={1080}
+            className="h-40 object-cover object-[50%_25%]"
           />
         )}
       </div>
@@ -41,7 +42,7 @@ export default function profile({ user, follows }: ProfileProps) {
       <div className="flex">
         <div className="relative w-[70%] px-4 ">
           {/* avatar */}
-          <div className="w-24 h-24 -mt-10 flex centerXY rounded-full border-4 border-primary bg-gray-700 overflow-hidden cursor-pointer">
+          <div className="relative w-24 h-24 -mt-10 flex centerXY rounded-full border-4 border-primary bg-gray-700 overflow-hidden cursor-pointer">
             {!user.avatar_url ? (
               <div
                 onClick={tool.changeEditProfileStatus}
@@ -53,9 +54,9 @@ export default function profile({ user, follows }: ProfileProps) {
               <Image
                 src={user.avatar_url}
                 alt="avatar"
-                width={100}
-                height={100}
-                className="w-30 h-30 object-contain"
+                fill
+                sizes="96px"
+                className="object-cover"
               />
             )}
           </div>
