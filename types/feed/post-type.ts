@@ -16,6 +16,23 @@ export type Media = {
   width?: number;
   height?: number;
   created_at: string;
+  user_id: string;
+};
+
+export type PostCard = Post & {
+  profiles?: {
+    username: string;
+    avatar_url: string | null;
+  };
+
+  media?: {
+    type: "image" | "video" | "link";
+    url?: string;
+    thumbnail?: string;
+    site?: string;
+    title?: string;
+    description?: string;
+  };
 };
 
 export type CreatePostInput = {
