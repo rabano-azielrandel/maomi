@@ -1,6 +1,6 @@
 import { Post } from "@/types/feed/post-type";
 
-export const samplePosts : Post[] = [
+export const samplePosts = [
   {
     id: "1",
     content: "Just finished building my maomi feed with Next.js 🚀",

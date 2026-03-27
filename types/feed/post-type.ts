@@ -19,20 +19,16 @@ export type Media = {
   user_id: string;
 };
 
-export type PostCard = Post & {
-  profiles?: {
-    username: string;
-    avatar_url: string | null;
-  };
-
-  media?: {
-    type: "image" | "video" | "link";
-    url?: string;
-    thumbnail?: string;
-    site?: string;
-    title?: string;
-    description?: string;
-  };
+export type PostCard = {
+  id: string;
+  content: string;
+  created_at: string;
+  username: string;
+  avatar_url: string | null;
+  like_count: number;
+  reply_count: number;
+  repost_count: number;
+  media: string[] | null;
 };
 
 export type CreatePostInput = {
