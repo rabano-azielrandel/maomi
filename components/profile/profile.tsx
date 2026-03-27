@@ -17,8 +17,10 @@ export default function profile({ user, follows }: ProfileProps) {
   const mockUser = {
     username: "azi_dev",
     display_name: "Azi",
-    avatar_url: "/image/azi.png",
-    banner_url: "/image/banner2.jpg",
+    avatar_url:
+      "https://tostzlvgedhrlwxywrdx.supabase.co/storage/v1/object/public/maomi-media/avatars/4332bcc6-a593-4bee-9acd-0f15f882fc52-1774540004711",
+    banner_url:
+      "https://tostzlvgedhrlwxywrdx.supabase.co/storage/v1/object/public/maomi-media/banners/4332bcc6-a593-4bee-9acd-0f15f882fc52-1774540006068",
     bio: "I build stuff with Next.js and Supabase 🚀",
   };
 
