@@ -19,13 +19,14 @@ export default async function ProtectedPage() {
       <div className="w-full px-2">
         <div className="bg-accent text-sm p-3 px-5 rounded-md text-foreground flex gap-3 items-center">
           <InfoIcon size="16" strokeWidth={2} />
-          This is a protected page that you can only see as an authenticated
-          user
+          This is still under maintenance, some features are not working yet.
         </div>
       </div>
       {/* feed */}
       <div className="overflow-y-auto">
-        <Suspense fallback={<div>Loading feed...</div>}>
+        <Suspense
+          fallback={<div className="flex centerXY">Loading feed...</div>}
+        >
           <PostFeedWrapper />
         </Suspense>
       </div>

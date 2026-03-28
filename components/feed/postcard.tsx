@@ -26,7 +26,6 @@ export default function PostCard({ post }: { post: PostCards }) {
     bookmark: card.isBookmark ? "text-blue-700" : "",
   };
 
-  console.log("POST DATA", post);
   return (
     <div className="border-b px-4 py-3 hover:bg-muted/30 transition cursor-pointer">
       <div className="flex gap-3">
