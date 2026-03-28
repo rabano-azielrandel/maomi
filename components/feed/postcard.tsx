@@ -26,12 +26,13 @@ export default function PostCard({ post }: { post: PostCards }) {
     bookmark: card.isBookmark ? "text-blue-700" : "",
   };
 
+  console.log("POST DATA", post);
   return (
     <div className="border-b px-4 py-3 hover:bg-muted/30 transition cursor-pointer">
       <div className="flex gap-3">
         {/* Avatar */}
         <Image
-          src={post.avatar_url ?? "/avatar.jpg"}
+          src={post.avatar_url ?? "/image/avatar.jpg"}
           alt="avatar"
           width={100}
           height={100}
@@ -44,13 +45,17 @@ export default function PostCard({ post }: { post: PostCards }) {
             <span className="font-semibold">{post.username ?? "Unknown"}</span>
 
             <span className="text-muted-foreground">
-              @{post.username ?? "user"}
+              {post.display_name ?? "user"}
             </span>
 
             <span className="text-muted-foreground">·</span>
 
             <span className="text-muted-foreground text-xs">
-              {new Date(post.created_at).toLocaleTimeString()}
+              {new Date(post.created_at).toLocaleTimeString("en-US", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+              })}
             </span>
           </div>
 
@@ -60,55 +65,46 @@ export default function PostCard({ post }: { post: PostCards }) {
           {/* MEDIA */}
           {post.media && (
             <div className="mt-3 rounded-xl overflow-hidden border">
-              {post.media?.map((url, index) => {
-                const type = post.media_type?.[index];
+              {/* IMAGE */}
+              {post.media.type === "image" && (
+                <img
+                  src={post.media.url}
+                  className="w-full object-cover max-h-[400px]"
+                  alt="post media"
+                />
+              )}
 
-                if (type === "image") {
-                  return (
-                    <img
-                      src={url}
-                      className="w-full object-cover max-h-[400px]"
-                    />
-                  );
-                }
+              {/* VIDEO */}
+              {post.media.type === "video" && (
+                <video
+                  controls
+                  src={post.media.url}
+                  className="w-full max-h-[400px]"
+                />
+              )}
 
-                if (type == "video") {
-                  return (
-                    <video
-                      controls
-                      src={url}
-                      className="w-full max-h-[400px]"
-                    />
-                  );
-                }
+              {/* LINK */}
+              {post.media.type === "link" && (
+                <div className="flex">
+                  <img
+                    src={post.media.url}
+                    className="w-[120px] object-cover"
+                    alt="link preview"
+                  />
 
-                if (type == "link") {
-                  return (
-                    <div className="flex">
-                      <img
-                        src={url} // replace it with post.thumbnail
-                        className="w-[120px] object-cover"
-                      />
+                  <div className="p-3 text-sm">
+                    <p className="text-muted-foreground text-xs">
+                      {post.content} {/* replace later */}
+                    </p>
 
-                      <div className="p-3 text-sm">
-                        <p className="text-muted-foreground text-xs">
-                          {post.content} {/* replace with post.site */}
-                        </p>
+                    <p className="font-semibold line-clamp-2">{post.content}</p>
 
-                        <p className="font-semibold line-clamp-2">
-                          {post.content} {/* replace with post.title */}
-                        </p>
-
-                        <p className="text-muted-foreground line-clamp-2 text-xs">
-                          {post.content} {/* replace with post.desc */}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                }
-
-                return null;
-              })}
+                    <p className="text-muted-foreground line-clamp-2 text-xs">
+                      {post.content}
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
