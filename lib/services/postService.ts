@@ -67,8 +67,6 @@ export async function getPosts(){
 
   if (!user || userError) throw new Error(userError?.message ?? "User not found");
 
-  
-
   const { data, error } = await supabase
   .rpc('get_posts_with_media', {p_user_id: user.id});
 

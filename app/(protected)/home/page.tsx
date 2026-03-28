@@ -1,11 +1,9 @@
-import { InfoIcon } from "lucide-react";
 import PostComposer from "@/components/post/postcomposer";
-import PostFeed from "@/components/feed/postfeed";
-import { getPosts } from "@/lib/services/postService";
+import PostFeedWrapper from "./feedwrapper";
+import { Suspense } from "react";
+import { InfoIcon } from "lucide-react";
 
 export default async function ProtectedPage() {
-  const postData = await getPosts();
-
   return (
     <div className="flex-1 w-full min-h-screen flex flex-col">
       <nav className="sticky top-0 z-50 h-[85px] flex items-center shadow-sm bg-background">
@@ -27,7 +25,9 @@ export default async function ProtectedPage() {
       </div>
       {/* feed */}
       <div className="overflow-y-auto">
-        <PostFeed posts={postData} />
+        <Suspense fallback={<div>Loading feed...</div>}>
+          <PostFeedWrapper />
+        </Suspense>
       </div>
     </div>
   );
