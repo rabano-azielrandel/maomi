@@ -11,6 +11,8 @@ import Image from "next/image";
 export default function PostCard({ post }: { post: PostCards }) {
   const card = usePostCardTool();
   const postcardIcons = getPostCardActions(card);
+  const images = post.media.filter((m) => m.type === "image");
+  const others = post.media.filter((m) => m.type !== "image");
 
   const hoverColors = {
     comment: "group-hover:text-blue-400",
@@ -25,6 +27,8 @@ export default function PostCard({ post }: { post: PostCards }) {
     like: card.isLike ? "text-red-400" : "",
     bookmark: card.isBookmark ? "text-blue-700" : "",
   };
+
+  console.log("checking post: ", post);
 
   return (
     <div className="border-b px-4 py-3 hover:bg-muted/30 transition cursor-pointer">
@@ -52,7 +56,7 @@ export default function PostCard({ post }: { post: PostCards }) {
             <span className="text-muted-foreground text-xs">
               {new Date(post.created_at).toLocaleTimeString("en-US", {
                 year: "numeric",
-                month: "2-digit",
+                month: "long",
                 day: "2-digit",
               })}
             </span>
@@ -62,50 +66,105 @@ export default function PostCard({ post }: { post: PostCards }) {
           <p className="text-sm mt-1 whitespace-pre-wrap">{post.content}</p>
 
           {/* MEDIA */}
-          {post.media && (
-            <div className="mt-3 rounded-xl overflow-hidden border">
-              {/* IMAGE */}
-              {post.media.type === "image" && (
-                <img
-                  src={post.media.url}
-                  className="w-full object-cover max-h-[400px]"
-                  alt="post media"
-                />
-              )}
+          {post.media?.length > 0 &&
+            (() => {
+              const images = post.media.filter((m) => m.type === "image");
+              const others = post.media.filter((m) => m.type !== "image");
 
-              {/* VIDEO */}
-              {post.media.type === "video" && (
-                <video
-                  controls
-                  src={post.media.url}
-                  className="w-full max-h-[400px]"
-                />
-              )}
+              return (
+                <>
+                  {/* IMAGE GRID */}
+                  {images.length > 0 && (
+                    <div
+                      className={cn(
+                        "mt-3 rounded-xl overflow-hidden border grid gap-2",
+                        images.length === 1 && "grid-cols-1",
+                        images.length === 2 && "grid-cols-2",
+                        images.length >= 3 && "grid-cols-2",
+                      )}
+                    >
+                      {images.slice(0, 4).map((item, index) => {
+                        // Special layout for 3 images (1 big on top)
+                        if (images.length === 3 && index === 0) {
+                          return (
+                            <img
+                              key={index}
+                              src={item.url}
+                              alt={`post media ${index}`}
+                              className="col-span-2 h-[250px] w-full object-cover"
+                            />
+                          );
+                        }
 
-              {/* LINK */}
-              {post.media.type === "link" && (
-                <div className="flex">
-                  <img
-                    src={post.media.url}
-                    className="w-[120px] object-cover"
-                    alt="link preview"
-                  />
+                        return (
+                          <div key={index} className="relative">
+                            <img
+                              src={item.url}
+                              alt={`post media ${index}`}
+                              className="w-full h-[200px] object-cover"
+                            />
 
-                  <div className="p-3 text-sm">
-                    <p className="text-muted-foreground text-xs">
-                      {post.content} {/* replace later */}
-                    </p>
+                            {/* +N overlay if more than 4 */}
+                            {index === 3 && images.length > 4 && (
+                              <div className="absolute inset-0 bg-black/60 flex items-center justify-center text-white text-xl font-semibold">
+                                +{images.length - 4}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
 
-                    <p className="font-semibold line-clamp-2">{post.content}</p>
+                  {/* OTHER MEDIA (VIDEO + LINK) */}
+                  {others.map((item, index) => {
+                    // 🎥 VIDEO
+                    if (item.type === "video") {
+                      return (
+                        <video
+                          key={index}
+                          src={item.url}
+                          controls
+                          className="mt-3 w-full max-h-[400px] rounded-xl border"
+                        />
+                      );
+                    }
 
-                    <p className="text-muted-foreground line-clamp-2 text-xs">
-                      {post.content}
-                    </p>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
+                    // LINK PREVIEW
+                    if (item.type === "link") {
+                      return (
+                        <div
+                          key={index}
+                          className="mt-3 flex border rounded-lg overflow-hidden"
+                        >
+                          <img
+                            src={item.url}
+                            alt="link preview"
+                            className="w-[120px] object-cover"
+                          />
+
+                          <div className="p-3 text-sm">
+                            <p className="text-muted-foreground text-xs">
+                              External link
+                            </p>
+
+                            <p className="font-semibold line-clamp-2">
+                              {item.url}
+                            </p>
+
+                            <p className="text-muted-foreground text-xs line-clamp-2">
+                              {item.url}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    }
+
+                    return null;
+                  })}
+                </>
+              );
+            })()}
 
           {/* ACTIONS */}
           <div className="flex justify-between mt-3 text-muted-foreground max-w-md">

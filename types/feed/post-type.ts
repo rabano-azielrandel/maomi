@@ -32,7 +32,7 @@ export type PostCards = {
   username: string | null;
   display_name: string | null;
   avatar_url: string | null;
-  media: MediaItem | null;
+  media: MediaItem[];
 
   like_count?: number;
   reply_count?: number;
