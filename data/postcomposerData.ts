@@ -1,7 +1,7 @@
 import {
   Image as ImageIcon,
   Smile,
-  Calendar,
+  Link,
   MapPin,
   Settings2,
 } from "lucide-react";
@@ -25,8 +25,8 @@ export const getComposerAction = (composer: any): IconActionPlugin[] => [
     action: () => composer.setShowEmoji((prev: boolean) => !prev),
   },
   {
-    name: "schedule",
-    icon: Calendar,
+    name: "link",
+    icon: Link,
     action: () => console.log("Open scheduler"),
   },
   {
