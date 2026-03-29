@@ -37,6 +37,8 @@ export type PostCards = {
   like_count?: number;
   reply_count?: number;
   repost_count?: number;
+
+  links: { id: string; url: string; title: string; description: string; thumbnail_url: string }[];
 };
 
 export type CreatePostInput = {

@@ -6,8 +6,8 @@ export async function createPost(input: CreatePostInput) {
 
   const { userId, content, files, link } = input;
 
-  // 1. Create the main post
-  const { data: post, error } = await supabase
+  // 1️ CREATE THE MAIN POST
+  const { data: post, error: postError } = await supabase
     .schema("maomi")
     .from("posts")
     .insert({
@@ -17,15 +17,12 @@ export async function createPost(input: CreatePostInput) {
     .select()
     .single();
 
-  if (error) throw error;
+  if (postError) throw postError;
 
-  // 2. HANDLE MEDIA (images/videos) — optional
+  // 2️ HANDLE MEDIA FILES (images/videos)
   if (files && files.length > 0) {
     for (const file of files) {
-      // Create unique file path
       const filePath = `posts/${userId}/${Date.now()}-${file.name}`;
-
-      // Convert buffer → Blob
       const blob = new Blob([file.buffer], { type: file.type });
 
       // Upload to Supabase Storage
@@ -33,19 +30,15 @@ export async function createPost(input: CreatePostInput) {
         .from("maomi-media")
         .upload(filePath, blob);
 
-      if (uploadError) {
-        console.error("UPLOAD ERROR FULL:", uploadError);
-        throw uploadError;
-      }
+      if (uploadError) throw uploadError;
 
-      // Get public URL
       const { data } = supabase.storage
         .from("maomi-media")
         .getPublicUrl(filePath);
 
       const publicUrl = data.publicUrl;
 
-      // Save into media table
+      // Insert into media table
       const { error: mediaError } = await supabase
         .schema("maomi")
         .from("media")
@@ -53,28 +46,21 @@ export async function createPost(input: CreatePostInput) {
           post_id: post.id,
           user_id: userId,
           url: publicUrl,
-          media_type: file.type.startsWith("video")
-            ? "video"
-            : "image",
+          media_type: file.type.startsWith("video") ? "video" : "image",
         });
 
       if (mediaError) throw mediaError;
     }
   }
 
-  // 3. HANDLE LINK (NEW FEATURE) — optional
+  // 3️ HANDLE LINK (optional) Only links have thumbnails
   if (link) {
     const { url, title, description, thumbnail } = link;
-
     let thumbnailUrl: string | null = null;
 
-    // If user uploaded thumbnail → store it
     if (thumbnail) {
       const filePath = `links/${userId}/${Date.now()}-${thumbnail.name}`;
-
-      const blob = new Blob([thumbnail.buffer], {
-        type: thumbnail.type,
-      });
+      const blob = new Blob([thumbnail.buffer], { type: thumbnail.type });
 
       // Upload thumbnail
       const { error: uploadError } = await supabase.storage
@@ -83,7 +69,6 @@ export async function createPost(input: CreatePostInput) {
 
       if (uploadError) throw uploadError;
 
-      // Get public URL
       const { data } = supabase.storage
         .from("maomi-media")
         .getPublicUrl(filePath);
@@ -91,22 +76,22 @@ export async function createPost(input: CreatePostInput) {
       thumbnailUrl = data.publicUrl;
     }
 
-    // Save link metadata to links table
+    // Insert link metadata
     const { error: linkError } = await supabase
       .schema("maomi")
       .from("links")
       .insert({
         post_id: post.id,
         url,
-        title,
-        description,
+        title: title ?? null,
+        description: description ?? null,
         thumbnail_url: thumbnailUrl,
       });
 
     if (linkError) throw linkError;
   }
 
-  // 4. FINAL RETURN
+  // 4️ RETURN POST
   return post;
 }
 
@@ -114,8 +99,6 @@ export async function getPosts(){
   const supabase = await createClient();
 
   const { data: { user }, error: userError } = await supabase.auth.getUser();
-
-  console.log('userid post: ', user?.id);
 
   if (!user || userError) throw new Error(userError?.message ?? "User not found");
 

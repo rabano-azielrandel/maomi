@@ -11,8 +11,6 @@ import Image from "next/image";
 export default function PostCard({ post }: { post: PostCards }) {
   const card = usePostCardTool();
   const postcardIcons = getPostCardActions(card);
-  const images = post.media.filter((m) => m.type === "image");
-  const others = post.media.filter((m) => m.type !== "image");
 
   const hoverColors = {
     comment: "group-hover:text-blue-400",
@@ -27,8 +25,6 @@ export default function PostCard({ post }: { post: PostCards }) {
     like: card.isLike ? "text-red-400" : "",
     bookmark: card.isBookmark ? "text-blue-700" : "",
   };
-
-  console.log("checking post: ", post);
 
   return (
     <div className="border-b px-4 py-3 hover:bg-muted/30 transition cursor-pointer">
@@ -66,105 +62,78 @@ export default function PostCard({ post }: { post: PostCards }) {
           <p className="text-sm mt-1 whitespace-pre-wrap">{post.content}</p>
 
           {/* MEDIA */}
-          {post.media?.length > 0 &&
-            (() => {
-              const images = post.media.filter((m) => m.type === "image");
-              const others = post.media.filter((m) => m.type !== "image");
-
-              return (
-                <>
-                  {/* IMAGE GRID */}
-                  {images.length > 0 && (
-                    <div
-                      className={cn(
-                        "mt-3 rounded-xl overflow-hidden border grid gap-2",
-                        images.length === 1 && "grid-cols-1",
-                        images.length === 2 && "grid-cols-2",
-                        images.length >= 3 && "grid-cols-2",
-                      )}
-                    >
-                      {images.slice(0, 4).map((item, index) => {
-                        // Special layout for 3 images (1 big on top)
-                        if (images.length === 3 && index === 0) {
-                          return (
-                            <img
-                              key={index}
-                              src={item.url}
-                              alt={`post media ${index}`}
-                              className="col-span-2 h-[250px] w-full object-cover"
-                            />
-                          );
-                        }
-
-                        return (
-                          <div key={index} className="relative">
-                            <img
-                              src={item.url}
-                              alt={`post media ${index}`}
-                              className="w-full h-[200px] object-cover"
-                            />
-
-                            {/* +N overlay if more than 4 */}
-                            {index === 3 && images.length > 4 && (
-                              <div className="absolute inset-0 bg-black/60 flex items-center justify-center text-white text-xl font-semibold">
-                                +{images.length - 4}
-                              </div>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
+          {/* MEDIA */}
+          {(post.media?.length || post.links?.length) > 0 && (
+            <>
+              {/* IMAGE GRID */}
+              {post.media?.filter((m) => m.type === "image").length > 0 && (
+                <div
+                  className={cn(
+                    "mt-3 rounded-xl overflow-hidden border grid gap-2",
+                    post.media.filter((m) => m.type === "image").length === 1 &&
+                      "grid-cols-1",
+                    post.media.filter((m) => m.type === "image").length === 2 &&
+                      "grid-cols-2",
+                    post.media.filter((m) => m.type === "image").length >= 3 &&
+                      "grid-cols-2",
                   )}
-
-                  {/* OTHER MEDIA (VIDEO + LINK) */}
-                  {others.map((item, index) => {
-                    // 🎥 VIDEO
-                    if (item.type === "video") {
-                      return (
-                        <video
-                          key={index}
+                >
+                  {post.media
+                    .filter((m) => m.type === "image")
+                    .slice(0, 4)
+                    .map((item, index) => (
+                      <div key={index} className="relative">
+                        <img
                           src={item.url}
-                          controls
-                          className="mt-3 w-full max-h-[400px] rounded-xl border"
+                          alt={`post media ${index}`}
+                          className="w-full h-[200px] object-cover"
                         />
-                      );
-                    }
-
-                    // LINK PREVIEW
-                    if (item.type === "link") {
-                      return (
-                        <div
-                          key={index}
-                          className="mt-3 flex border rounded-lg overflow-hidden"
-                        >
-                          <img
-                            src={item.url}
-                            alt="link preview"
-                            className="w-[120px] object-cover"
-                          />
-
-                          <div className="p-3 text-sm">
-                            <p className="text-muted-foreground text-xs">
-                              External link
-                            </p>
-
-                            <p className="font-semibold line-clamp-2">
-                              {item.url}
-                            </p>
-
-                            <p className="text-muted-foreground text-xs line-clamp-2">
-                              {item.url}
-                            </p>
+                        {index === 3 && post.media.length > 4 && (
+                          <div className="absolute inset-0 bg-black/60 flex items-center justify-center text-white text-xl font-semibold">
+                            +{post.media.length - 4}
                           </div>
-                        </div>
-                      );
-                    }
+                        )}
+                      </div>
+                    ))}
+                </div>
+              )}
 
-                    return null;
-                  })}
-                </>
-              );
-            })()}
+              {/* VIDEO MEDIA */}
+              {post.media
+                ?.filter((m) => m.type === "video")
+                .map((item, index) => (
+                  <video
+                    key={index}
+                    src={item.url}
+                    controls
+                    className="mt-3 w-full max-h-[400px] rounded-xl border"
+                  />
+                ))}
+
+              {/* LINK PREVIEWS */}
+              {post.links?.map((link) => (
+                <div
+                  key={link.id}
+                  className="mt-3 flex border rounded-lg overflow-hidden"
+                >
+                  <img
+                    src={link.thumbnail_url || link.url} // fallback if no thumbnail
+                    alt={link.title || "link preview"}
+                    className="w-[120px] object-cover"
+                  />
+
+                  <div className="flex flex-col gap-2 justify-center p-3 text-sm">
+                    <p className="font-semibold line-clamp-2">
+                      {link.title || link.url}
+                    </p>
+                    <p className="text-muted-foreground text-xs line-clamp-2">
+                      {link.description || link.url}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
 
           {/* ACTIONS */}
           <div className="flex justify-between mt-3 text-muted-foreground max-w-md">
