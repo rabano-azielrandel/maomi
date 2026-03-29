@@ -19,6 +19,11 @@ export async function POST(req: NextRequest) {
 
     const filesData: FormDataEntryValue[] = formData.getAll("files");
 
+    const linkUrl = formData.get("link_url") as string | null;
+    const linkTitle = formData.get("link_title") as string | null;
+    const linkDesc = formData.get("link_desc") as string | null;
+    const linkThumbnail = formData.get("link_thumbnail") as File | null;
+
     // Convert to proper File-like objects
     const files: { buffer: ArrayBuffer; name: string; type: string }[] = [];
 
@@ -29,10 +34,30 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    let linkThumbnailFile = null;
+
+    if (linkThumbnail instanceof File) {
+      const buffer = await linkThumbnail.arrayBuffer();
+
+      linkThumbnailFile = {
+        buffer,
+        name: linkThumbnail.name,
+        type: linkThumbnail.type,
+      };
+    }
+
     const post = await createPost({
       userId: user.id,
       content,
       files,
+      link: linkUrl
+        ? {
+            url: linkUrl,
+            title: linkTitle,
+            description: linkDesc,
+            thumbnail: linkThumbnailFile,
+          }
+        : null,
     });
 
     return NextResponse.json(post, { status: 200 });

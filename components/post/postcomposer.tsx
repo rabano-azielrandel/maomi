@@ -20,15 +20,28 @@ export default function PostComposer() {
 
   const handleSubmit = async () => {
     try {
-      if (!composer.text && composer.images.length === 0) return;
+      if (!composer.text && composer.images.length === 0 && !composer.linkUrl)
+        return;
 
       const formData = new FormData();
 
       formData.append("content", composer.text);
 
+      // media post
       composer.images.forEach((file) => {
         formData.append("files", file);
       });
+
+      // link post
+      if (composer.showLink && composer.linkUrl) {
+        formData.append("link_url", composer.linkUrl);
+        formData.append("link_title", composer.linkTitle);
+        formData.append("link_desc", composer.linkDesc);
+
+        if (composer.linkThumbnailFile) {
+          formData.append("link_thumbnail", composer.linkThumbnailFile);
+        }
+      }
 
       const res = await fetch("/api/insert-post", {
         method: "POST",
@@ -37,9 +50,11 @@ export default function PostComposer() {
 
       if (!res.ok) throw new Error("Failed to post");
 
+      // ✅ reset everything
       composer.setText("");
       composer.setImages([]);
       composer.setShowEmoji(false);
+      composer.resetLink(); // IMPORTANT
     } catch (error: any) {
       console.log(error.message ?? "Post Failed");
     }
@@ -189,6 +204,8 @@ export default function PostComposer() {
             <input
               type="url"
               placeholder="https://example.com"
+              value={composer.linkUrl}
+              onChange={(e) => composer.setLinkUrl(e.target.value)}
               className="w-full p-2 bg-transparent border rounded"
             />
 
@@ -196,12 +213,16 @@ export default function PostComposer() {
             <input
               type="text"
               placeholder="Enter link title"
+              value={composer.linkTitle}
+              onChange={(e) => composer.setLinkTitle(e.target.value)}
               className="w-full p-2 bg-transparent border rounded"
             />
 
             {/* Description */}
             <textarea
               placeholder="Write a short description..."
+              value={composer.linkDesc}
+              onChange={(e) => composer.setLinkDesc(e.target.value)}
               className="w-full p-2 bg-transparent border rounded resize-none"
               rows={3}
             />

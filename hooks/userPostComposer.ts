@@ -10,6 +10,9 @@ export function usePostComposer() {
   const [showLink, setShowLink] = useState(false);
   const [linkThumbnailFile, setLinkThumbnailFile] = useState<File | null>(null);
   const [linkThumbnailPreview, setLinkThumbnailPreview] = useState<string | null>(null);
+  const [linkUrl, setLinkUrl] = useState("");
+  const [linkTitle, setLinkTitle] = useState("");
+  const [linkDesc, setLinkDesc] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -53,8 +56,17 @@ export function usePostComposer() {
   }
 
   function toggleLink() {
-    setShowLink((prev) => !prev);
-  }
+  setShowLink((prev) => {
+    const next = !prev;
+
+    if (next) {
+      setImages([]); // prevent mixing
+      setShowPoll(false);
+    }
+
+    return next;
+  });
+}
 
   function setLinkThumbnail(file: File) {
     setLinkThumbnailFile(file);
@@ -72,16 +84,29 @@ export function usePostComposer() {
     setLinkThumbnailPreview(null);
   }
 
+  function resetLink() {
+  setLinkUrl("");
+  setLinkTitle("");
+  setLinkDesc("");
+  removeLinkThumbnail();
+}
+
   return {
     text,
     images,
     showEmoji,
     showPoll,
     showLink,
+    linkUrl,
+    linkTitle,
+    linkDesc,
     linkThumbnailFile,
     linkThumbnailPreview,
     textareaRef,
 
+    setLinkUrl,
+    setLinkTitle,
+    setLinkDesc,
     setLinkThumbnail,
     removeLinkThumbnail,
     setText,
@@ -92,5 +117,6 @@ export function usePostComposer() {
     removeImage,
     togglePoll,
     toggleLink,
+    resetLink
   };
 }

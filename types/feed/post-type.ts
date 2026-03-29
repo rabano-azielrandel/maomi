@@ -49,6 +49,17 @@ export type CreatePostInput = {
     name: string;
     type: string;
   }[];
+
+  link?: {
+    url: string;
+    title?: string | null;
+    description?: string | null;
+    thumbnail?: {
+      buffer: ArrayBuffer;
+      name: string;
+      type: string;
+    } | null;
+  } | null;
 };
 
 export type PostActionName =
