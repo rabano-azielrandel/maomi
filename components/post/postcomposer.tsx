@@ -14,6 +14,7 @@ const EmojiPicker = dynamic(() => import("emoji-picker-react"), {
 
 export default function PostComposer() {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const linkFileInputRef = useRef<HTMLInputElement>(null);
   const composer = usePostComposer();
   const toolbarIcons = getComposerAction(composer);
 
@@ -133,7 +134,7 @@ export default function PostComposer() {
         {composer.showLink && (
           <div className="mt-3 p-3 border rounded-lg text-primary space-y-3">
             {/* Thumbnail Preview */}
-            <div className="w-full h-40 bg-gray-800 rounded overflow-hidden flex items-center justify-center relative">
+            <div className="w-full h-40 border border-gray-800 rounded overflow-hidden flex items-center justify-center relative">
               {composer.linkThumbnailPreview ? (
                 <>
                   <Image
@@ -146,7 +147,13 @@ export default function PostComposer() {
 
                   {/* Remove button */}
                   <button
-                    onClick={composer.removeLinkThumbnail}
+                    onClick={() => {
+                      composer.removeLinkThumbnail();
+
+                      if (linkFileInputRef.current) {
+                        linkFileInputRef.current.value = "";
+                      }
+                    }}
                     className="absolute top-2 right-2 bg-black/70 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs hover:bg-black"
                   >
                     ✕
@@ -167,6 +174,7 @@ export default function PostComposer() {
                   : "Upload thumbnail"}
               </label>
               <input
+                ref={linkFileInputRef}
                 type="file"
                 accept="image/*"
                 className="w-full text-sm"

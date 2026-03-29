@@ -27,7 +27,7 @@ export const getComposerAction = (composer: any): IconActionPlugin[] => [
   {
     name: "link",
     icon: Link,
-    action: () => console.log("Open scheduler"),
+    action: () => composer.toggleLink(),
   },
   {
     name: "location",
