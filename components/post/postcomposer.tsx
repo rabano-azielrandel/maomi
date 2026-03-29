@@ -129,6 +129,77 @@ export default function PostComposer() {
           </div>
         )}
 
+        {/* link */}
+        {composer.showLink && (
+          <div className="mt-3 p-3 border rounded-lg text-primary space-y-3">
+            {/* Thumbnail Preview */}
+            <div className="w-full h-40 bg-gray-800 rounded overflow-hidden flex items-center justify-center relative">
+              {composer.linkThumbnailPreview ? (
+                <>
+                  <Image
+                    src={composer.linkThumbnailPreview}
+                    alt="link preview"
+                    width={500}
+                    height={300}
+                    className="w-full h-full object-cover"
+                  />
+
+                  {/* Remove button */}
+                  <button
+                    onClick={composer.removeLinkThumbnail}
+                    className="absolute top-2 right-2 bg-black/70 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs hover:bg-black"
+                  >
+                    ✕
+                  </button>
+                </>
+              ) : (
+                <span className="text-sm opacity-50">
+                  No thumbnail selected
+                </span>
+              )}
+            </div>
+
+            {/* Upload / Replace */}
+            <div>
+              <label className="text-sm opacity-70">
+                {composer.linkThumbnailFile
+                  ? "Replace thumbnail"
+                  : "Upload thumbnail"}
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                className="w-full text-sm"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) composer.setLinkThumbnail(file);
+                }}
+              />
+            </div>
+
+            {/* Site URL */}
+            <input
+              type="url"
+              placeholder="https://example.com"
+              className="w-full p-2 bg-transparent border rounded"
+            />
+
+            {/* Title */}
+            <input
+              type="text"
+              placeholder="Enter link title"
+              className="w-full p-2 bg-transparent border rounded"
+            />
+
+            {/* Description */}
+            <textarea
+              placeholder="Write a short description..."
+              className="w-full p-2 bg-transparent border rounded resize-none"
+              rows={3}
+            />
+          </div>
+        )}
+
         {/* Footer */}
         <div className="flex items-center justify-between mt-3">
           {/* Icons */}

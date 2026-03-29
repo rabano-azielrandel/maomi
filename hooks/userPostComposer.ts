@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export function usePostComposer() {
   const [text, setText] = useState("");
@@ -8,7 +8,17 @@ export function usePostComposer() {
   const [showEmoji, setShowEmoji] = useState(false);
   const [showPoll, setShowPoll] = useState(false);
   const [showLink, setShowLink] = useState(false);
+  const [linkThumbnailFile, setLinkThumbnailFile] = useState<File | null>(null);
+  const [linkThumbnailPreview, setLinkThumbnailPreview] = useState<string | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    return () => {
+      if (linkThumbnailPreview) {
+        URL.revokeObjectURL(linkThumbnailPreview);
+      }
+    };
+  }, [linkThumbnailPreview]);
 
   function resizeTextarea() {
     const textarea = textareaRef.current;
@@ -46,18 +56,37 @@ export function usePostComposer() {
     setShowLink((prev) => !prev);
   }
 
+  function setLinkThumbnail(file: File) {
+    setLinkThumbnailFile(file);
+
+    const previewUrl = URL.createObjectURL(file);
+    setLinkThumbnailPreview(previewUrl);
+  }
+
+  function removeLinkThumbnail() {
+    if (linkThumbnailPreview) {
+      URL.revokeObjectURL(linkThumbnailPreview);
+    }
+
+    setLinkThumbnailFile(null);
+    setLinkThumbnailPreview(null);
+  }
+
   return {
     text,
     images,
     showEmoji,
     showPoll,
     showLink,
+    linkThumbnailFile,
+    linkThumbnailPreview,
+    textareaRef,
 
+    setLinkThumbnail,
+    removeLinkThumbnail,
     setText,
     setImages,
     setShowEmoji,
-
-    textareaRef,
     handleTextChange,
     addEmoji,
     removeImage,
