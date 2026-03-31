@@ -54,7 +54,9 @@ export default function profile({ user, follows }: ProfileProps) {
           {/* text info */}
           <div className="mt-10">
             <h2 className="text-xl font-bold">{user.display_name}</h2>
-            <p className="text-gray-400">{user.username}</p>
+            <p className="text-sm text-gray-400">{user.username}</p>
+
+            <p className="text-sm font-medium leading-none mt-2">{user.bio}</p>
 
             <p className="text-gray-400 text-sm mt-2">Joined {formatted}</p>
 
