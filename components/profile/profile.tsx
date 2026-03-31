@@ -14,16 +14,6 @@ export default function profile({ user, follows }: ProfileProps) {
     year: "numeric",
   });
 
-  const mockUser = {
-    username: "azi_dev",
-    display_name: "Azi",
-    avatar_url:
-      "https://tostzlvgedhrlwxywrdx.supabase.co/storage/v1/object/public/maomi-media/avatars/4332bcc6-a593-4bee-9acd-0f15f882fc52-1774540004711",
-    banner_url:
-      "https://tostzlvgedhrlwxywrdx.supabase.co/storage/v1/object/public/maomi-media/banners/4332bcc6-a593-4bee-9acd-0f15f882fc52-1774540006068",
-    bio: "I build stuff with Next.js and Supabase 🚀",
-  };
-
   return (
     <div className="flex flex-col gap-2">
       {/* banner */}
@@ -108,7 +98,7 @@ export default function profile({ user, follows }: ProfileProps) {
 
           {/* MODAL CONTENT */}
           <div className="relative z-10 w-full max-w-2xl mr-24">
-            <EditProfileForm {...mockUser} tool={tool} />
+            <EditProfileForm {...user} tool={tool} />
           </div>
         </div>
       )}
